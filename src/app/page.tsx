@@ -1,6 +1,6 @@
 "use client";
 
-import HeroIntro from "@/sections/HeroIntro";
+import HeroIntro from "@/components/react/sections/HeroIntro";
 
 const Homepage = () => {
   return (

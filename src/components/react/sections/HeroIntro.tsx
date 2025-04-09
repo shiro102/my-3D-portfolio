@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import MyRoom from "@/components/MyRoom";
+import MyRoom from "@/components/3D/components/MyRoom";
 // import MyRoomAntique from "@/components/MyRoomAntique";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
@@ -9,11 +9,11 @@ import {
   ContactShadows,
 } from "@react-three/drei";
 import * as THREE from "three";
-import CanvasLoader from "../components/Loading";
-import LightHelper from "../components/LightHelper";
-import CameraAnimator from "@/components/CameraAnimator";
+import CanvasLoader from "../../3D/helpers/CanvasLoader";
+import LightHelper from "../../3D/helpers/LightHelper";
+import CameraAnimator from "@/components/3D/helpers/CameraAnimator";
 import { OrbitControls as OrbitControlsProps } from 'three-stdlib';
-import SteamRibbon from "@/components/SteamRibbon";
+import SteamRibbon from "@/components/3D/components/SteamRibbon";
 
 const HeroIntro = () => {
   const [animateCamera, setAnimateCamera] = useState(false);

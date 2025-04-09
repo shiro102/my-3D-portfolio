@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import TransitionProvider from "@/components/transitionProvider";
+import TransitionProvider from "@/components/react/transitionProvider";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 

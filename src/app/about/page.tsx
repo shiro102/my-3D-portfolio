@@ -1,5 +1,5 @@
 "use client";
-import Brain from "@/components/Brain";
+import Brain from "@/components/2D/components/Brain";
 import { motion, useInView, useScroll } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
