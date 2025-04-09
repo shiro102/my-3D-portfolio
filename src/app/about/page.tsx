@@ -1,13 +1,13 @@
 "use client";
-import Brain from "@/components/brain";
+import Brain from "@/components/Brain";
 import { motion, useInView, useScroll } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
-const AboutPage = () => {
+const About = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({ container: containerRef });
+  const { scrollYProgress } = useScroll();
 
   const skillRef = useRef<HTMLDivElement>(null);
   // const isSkillRefInView = useInView(skillRef, {once:true});
@@ -17,16 +17,11 @@ const AboutPage = () => {
   const isExperienceRefInView = useInView(experienceRef, { margin: "-100px" });
 
   return (
-    <motion.div
-      className="h-full"
-      initial={{ y: "-200vh" }}
-      animate={{ y: "0%" }}
-      transition={{ duration: 1 }}
-    >
+    <div className="bg-gradient-to-b from-blue-100 to-red-50">
       {/* CONTAINER */}
-      <div className="h-full overflow-scroll lg:flex" ref={containerRef}>
+      <div className="min-h-screen lg:flex relative" ref={containerRef}>
         {/* TEXT CONTAINER */}
-        <div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-2/3 lg:pr-0 xl:w-1/2">
+        <div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-2/3 lg:pr-0">
           {/* BIOGRAPHY CONTAINER */}
           <div className="flex flex-col gap-12 justify-center">
             {/* BIOGRAPHY IMAGE */}
@@ -326,12 +321,12 @@ const AboutPage = () => {
           </div>
         </div>
         {/* SVG CONTAINER */}
-        <div className="hidden lg:block w-1/3 sticky top-0 z-30 xl:w-1/2">
+        <div className="hidden lg:block w-1/3 sticky top-0 h-screen z-30">
           <Brain scrollYProgress={scrollYProgress} />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-export default AboutPage;
+export default About;
