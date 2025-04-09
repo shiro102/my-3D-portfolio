@@ -6,7 +6,6 @@ import emailjs from "@emailjs/browser";
 const ContactPage = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-  const text = "Say Hello";
 
   const form = useRef<HTMLFormElement>(null);
 

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import MyRoom from "@/components/MyRoom";
-import MyRoomAntique from "@/components/MyRoomAntique";
+// import MyRoomAntique from "@/components/MyRoomAntique";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import {

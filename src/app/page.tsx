@@ -1,7 +1,6 @@
 "use client";
 
 import HeroIntro from "@/sections/HeroIntro";
-import Projects from "@/sections/Projects";
 
 const Homepage = () => {
   return (
