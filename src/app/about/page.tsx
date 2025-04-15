@@ -321,7 +321,7 @@ const About = () => {
           </div>
         </div>
         {/* SVG CONTAINER */}
-        <div className="hidden lg:block w-1/3 sticky top-0 h-screen z-30">
+        <div className="hidden lg:block w-1/3 sticky top-10 h-screen z-10">
           <Brain scrollYProgress={scrollYProgress} />
         </div>
       </div>

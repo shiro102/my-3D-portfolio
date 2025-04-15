@@ -3,14 +3,18 @@ import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import gsap from "gsap";
 import { OrbitControls as OrbitControlsProps } from "three-stdlib";
+import * as THREE from "three";
+import { MyRoomHandle } from "../components/MyRoom";
 
 interface CameraAnimatorProps {
   trigger: boolean;
   controlsRef: React.RefObject<OrbitControlsProps | null>;
+  screenRef: React.RefObject<MyRoomHandle | null>;
 }
 
-const CameraAnimator = ({ trigger, controlsRef }: CameraAnimatorProps) => {
+const CameraAnimator = ({ trigger, controlsRef, screenRef }: CameraAnimatorProps) => {
   const { camera } = useThree();
+  const scaleLevel = 1/0.085
 
   useEffect(() => {
     if (trigger && controlsRef.current) {
@@ -18,25 +22,31 @@ const CameraAnimator = ({ trigger, controlsRef }: CameraAnimatorProps) => {
 
       gsap.to(camera.position, {
         duration: 2,
-        x: 0,
-        y: 0,
-        z: -2,
+        x: 0 * scaleLevel,
+        y: 0 * scaleLevel,
+        z: -2 * scaleLevel,
         ease: "power2.out",
         onUpdate: () => {
-          controls.target.set(-0.25, -0.5, -0.6);
-          controls.update(); // keep controls in sync during animation
+          if (screenRef.current?.screen?.position) {
+            const pos = screenRef.current.screen.getWorldPosition(new THREE.Vector3());
+            controls.target.copy(pos);
+            controls.update();
+          }
         },
         onComplete: () => {
           gsap.to(camera.position, {
             duration: 2,
-            x: -0.15,
-            y: -0.6,
-            z: -0.9,
+            x: -0.2 * scaleLevel,
+            y: -0.5 * scaleLevel,
+            z: -1.3 * scaleLevel,
             ease: "power2.out",
-            // onUpdate: () => {
-            //   controls.target.set(-0.25, -0.5, -1);
-            //   controls.update(); // keep controls in sync during animation
-            // },
+            onUpdate: () => {
+              if (screenRef.current?.screen?.position) {
+                const pos = screenRef.current.screen.getWorldPosition(new THREE.Vector3());
+                controls.target.copy(pos);
+                controls.update();
+              }
+            },
           });
           //   const target = { ...controls.target }; // current target
           //   gsap.to(target, {

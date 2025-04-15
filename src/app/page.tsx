@@ -1,12 +1,14 @@
 "use client";
 
-import HeroIntro from "@/components/react/sections/HeroIntro";
+import WorkRoom3D from "@/components/react/sections/WorkRoom3D";
+import HeroIntro2D from "@/components/react/sections/Hero2D";
 
 const Homepage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50">
-      <section id="hero">
-        <HeroIntro />
+    <div className="min-h-screen ">
+      <HeroIntro2D />
+      <section id="work">
+        <WorkRoom3D />
       </section>
       {/* <section id="projects">
         <Projects />

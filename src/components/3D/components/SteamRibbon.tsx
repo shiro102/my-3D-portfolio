@@ -14,16 +14,16 @@ export default function SteamRibbon({ position = [0, 0, 0] }: SteamRibbonProps) 
   const planes = useMemo(() => Array.from({ length: 15 }), [])
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
-
+    const scaleValue = 1/0.085
     planes.forEach((_, i) => {
       const progress = i / planes.length
-      const y = progress * 0.25
+      const y = progress * 0.25 * scaleValue
       const strength = Math.sin(progress * Math.PI) // 👈 Max in middle
 
-      const x = Math.sin(t * 0.5 + i) * 0.04 * strength
-      const z = Math.cos(t * 0.3 + i) * 0.05 * strength
+      const x = Math.sin(t * 0.5 + i) * 0.025 * strength * scaleValue
+      const z = Math.cos(t * 0.3 + i) * 0.05 * strength * scaleValue
 
-      const scale = 0.3 * (1 - progress/2)
+      const scale = 0.3 * (1 - progress/2) * scaleValue
 
       const obj = group.current.children[i] as THREE.Mesh
       obj.position.set(x, y, z)

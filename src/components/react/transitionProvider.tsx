@@ -10,7 +10,7 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AnimatePresence mode="wait">
-      <div key={pathName} className="w-screen h-screen">
+      <div key={pathName} className="w-screen min-h-screen relative">
         {/* <motion.div
           className="h-screen w-screen fixed bg-black rounded-b-[100px] z-40"
           animate={{ height: "0vh" }}
@@ -31,12 +31,10 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
           initial={{ height: "140vh" }}
           animate={{ height: "0vh", transition: { delay: 0.5 } }}
         /> */}
-        <div className="h-20">
+        <div className="h-[70] sticky top-0 z-50">
           <Navbar />
         </div>
-        <div
-          className="h-[calc(100vh-6rem)]"
-        >
+        <div>
           {children}
         </div>
       </div>
