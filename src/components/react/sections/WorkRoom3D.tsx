@@ -54,7 +54,7 @@ const WorkRoom3D = () => {
         My Work Room
       </div>
       {/* Leva panel */}
-      <div className="absolute top-48 right-10 z-50">
+      <div className="absolute top-48 left-10 z-50">
         <Leva titleBar={true} fill />
       </div>
 

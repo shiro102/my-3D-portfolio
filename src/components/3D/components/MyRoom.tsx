@@ -824,17 +824,17 @@ const MyRoom = forwardRef<
                         material={materials["screen.001"]}
                       >
                         <Html
-                          className="w-[334px] h-[216px] bg-[#f0f0f0] rounded-[3px] overflow-y-auto p-0"
+                          className="w-[334px] h-[216px] bg-[#f0f0f0] rounded-[3px] overflow-x-hidden overflow-y-auto p-0 scrollbar-thin scrollbar-thumb-transparent hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-fully-transparent"
                           rotation-x={-Math.PI / 2}
                           position={[0, 0.05, -0.09]}
                           transform
                           occlude="blending"
                         >
                           <div
-                            className="w-[668px] h-[432px] p-[10px] scale-[0.5] origin-top-left"
+                            className="w-[668px] h-[432px] scale-[0.5] origin-top-left"
                             onPointerDown={(e) => e.stopPropagation()}
                           >
-                            <Works />
+                            <Works isMobile={true} />
                           </div>
                         </Html>
                       </mesh>

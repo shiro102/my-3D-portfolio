@@ -1,5 +1,19 @@
 @import "tailwindcss";
+@plugin "tailwind-scrollbar";
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-transparent;
+  }
+}
+
+@utility scrollbar-track-transparent {
+  &::-webkit-scrollbar {
+    background-color: transparent !important;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
 }

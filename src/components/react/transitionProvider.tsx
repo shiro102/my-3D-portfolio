@@ -10,7 +10,7 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AnimatePresence mode="wait">
-      <div key={pathName} className="w-screen min-h-screen relative">
+      <div key={pathName} className="w-full min-h-screen relative min-w-full">
         {/* <motion.div
           className="h-screen w-screen fixed bg-black rounded-b-[100px] z-40"
           animate={{ height: "0vh" }}
