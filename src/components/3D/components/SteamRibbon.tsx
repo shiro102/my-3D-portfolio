@@ -47,7 +47,7 @@ export default function SteamRibbon({ position = [0, 0, 0] }: SteamRibbonProps) 
             map={smokeTexture}
             transparent
             depthWrite={false}
-            opacity={0.3}
+            opacity={0.6}
             side={THREE.DoubleSide}
           />
         </mesh>

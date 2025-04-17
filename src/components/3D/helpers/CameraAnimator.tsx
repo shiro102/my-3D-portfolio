@@ -24,7 +24,7 @@ const CameraAnimator = ({ trigger, controlsRef, screenRef }: CameraAnimatorProps
         duration: 2,
         x: 0 * scaleLevel,
         y: 0 * scaleLevel,
-        z: -2 * scaleLevel,
+        z: -1.5 * scaleLevel,
         ease: "power2.out",
         onUpdate: () => {
           if (screenRef.current?.screen?.position) {
@@ -36,9 +36,9 @@ const CameraAnimator = ({ trigger, controlsRef, screenRef }: CameraAnimatorProps
         onComplete: () => {
           gsap.to(camera.position, {
             duration: 2,
-            x: -0.2 * scaleLevel,
-            y: -0.5 * scaleLevel,
-            z: -1.3 * scaleLevel,
+            x: -0.68 * scaleLevel,
+            y: -0.3 * scaleLevel,
+            z: -1.85 * scaleLevel,
             ease: "power2.out",
             onUpdate: () => {
               if (screenRef.current?.screen?.position) {

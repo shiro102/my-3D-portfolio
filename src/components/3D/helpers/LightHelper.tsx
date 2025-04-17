@@ -43,7 +43,7 @@ const LightHelper = ({ showHelpers = false }: { showHelpers?: boolean }) => {
         shadow-mapSize-height={1024}
         shadow-camera-near={0.5 * scaleLevel}
         shadow-camera-far={20 * scaleLevel}
-        shadow-camera-left={-2 * scaleLevel}
+        shadow-camera-left={-3 * scaleLevel}
         shadow-camera-right={2 * scaleLevel}
         shadow-camera-top={0.1 * scaleLevel}
         shadow-camera-bottom={-3 * scaleLevel}
@@ -53,7 +53,7 @@ const LightHelper = ({ showHelpers = false }: { showHelpers?: boolean }) => {
       <directionalLight
         ref={bounceLightRef}
         position={[0 * scaleLevel, 3 * scaleLevel, 1 * scaleLevel]}
-        intensity={2}
+        intensity={2.5}
         color={0xffffff}
       />
     </>

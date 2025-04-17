@@ -31,9 +31,13 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
           initial={{ height: "140vh" }}
           animate={{ height: "0vh", transition: { delay: 0.5 } }}
         /> */}
-        <div className="h-[70] sticky top-0 z-50">
-          <Navbar />
-        </div>
+
+        {pathName !== "/" && (
+          <div className="h-[70px] sticky top-0 left-0 right-0 z-50">
+            <Navbar />
+          </div>
+        )}
+
         <div>
           {children}
         </div>

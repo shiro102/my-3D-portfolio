@@ -17,7 +17,7 @@ const About = () => {
   const isExperienceRefInView = useInView(experienceRef, { margin: "-100px" });
 
   return (
-    <div className="bg-gradient-to-b from-blue-100 to-red-50">
+    <div className="bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20">
       {/* CONTAINER */}
       <div className="min-h-screen lg:flex relative" ref={containerRef}>
         {/* TEXT CONTAINER */}

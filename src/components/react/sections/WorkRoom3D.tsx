@@ -3,7 +3,11 @@ import MyRoom from "@/components/3D/components/MyRoom";
 // import MyRoomAntique from "@/components/MyRoomAntique";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Center, OrbitControls, ContactShadows } from "@react-three/drei";
+import {
+  Center,
+  OrbitControls,
+  ContactShadows,
+} from "@react-three/drei";
 import * as THREE from "three";
 import CanvasLoader from "../../3D/helpers/CanvasLoader";
 import LightHelper from "../../3D/helpers/LightHelper";
@@ -15,13 +19,12 @@ import { MyRoomHandle } from "@/components/3D/components/MyRoom";
 // import { CameraToObjectRay } from "@/components/3D/helpers/CameraToObjectRay";
 // import { ObjectCenterMarker } from "@/components/3D/helpers/ObjectCenterMarker";
 
-
 const WorkRoom3D = () => {
   const [animateCamera, setAnimateCamera] = useState(false);
   const controlsRef = useRef<OrbitControlsProps>(null);
   const screenRef = useRef<MyRoomHandle>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera>(null!);
-  const scaleLevel = 1/0.085
+  const scaleLevel = 1 / 0.085;
   // 🛠️ Panel toggle
   const { showLightHelpers } = useControls("Helpers", {
     showLightHelpers: false,
@@ -43,7 +46,7 @@ const WorkRoom3D = () => {
   // Ref for screen mesh
   // const targetScreenRef = useMemo(() => {
   //   return screenMesh ? { current: screenMesh } : null;
-  // }, [screenMesh]);  
+  // }, [screenMesh]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50 pt-5 relative">
@@ -57,17 +60,12 @@ const WorkRoom3D = () => {
 
       {/* Canvas  */}
       <div className="h-screen relative">
-        {/* Button overlay */}
-        <button
-          className=" bg-blue-600 text-white px-4 py-2 rounded shadow absolute top-2/3 right-1/2 z-40 cursor-pointer hover:opacity-90"
-          onClick={() => setAnimateCamera(true)}
-        >
-          Zoom In
-        </button>
-
         <Canvas
           shadows
-          camera={{ position: [6 * scaleLevel, 5 * scaleLevel, 1 * scaleLevel], fov: zoom }}
+          camera={{
+            position: [3.7 * scaleLevel, 3.5 * scaleLevel, 5 * scaleLevel],
+            fov: zoom,
+          }}
           onCreated={({ gl, camera }) => {
             gl.toneMapping = THREE.ACESFilmicToneMapping;
             gl.outputColorSpace = THREE.SRGBColorSpace; // updated from outputEncoding
@@ -77,7 +75,7 @@ const WorkRoom3D = () => {
           {/* <Environment preset="sunset" background={false} far={100} /> */}
 
           {/* Lighting */}
-          <ambientLight intensity={1} color={0xffffff} />
+          <ambientLight intensity={1.1} color={0xffffff} />
           <LightHelper showHelpers={showLightHelpers} />
 
           {/* Main scene */}
@@ -96,7 +94,7 @@ const WorkRoom3D = () => {
             />
             <Center>
               <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                <MyRoom ref={screenRef} />
+                <MyRoom ref={screenRef} setCamera={setAnimateCamera} />
               </group>
             </Center>
           </Suspense>
@@ -111,7 +109,13 @@ const WorkRoom3D = () => {
           />
 
           {/* Cup's steam */}
-          <SteamRibbon position={[0.3 * scaleLevel, -0.47 * scaleLevel, -0.95 * scaleLevel]} />
+          <SteamRibbon
+            position={[
+              -0.11 * scaleLevel,
+              -0.47 * scaleLevel,
+              -1.04 * scaleLevel,
+            ]}
+          />
 
           {/* Rotation and Zoom controls */}
           <OrbitControls
