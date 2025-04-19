@@ -89,6 +89,7 @@ const WorkRoom3D = () => {
             )} */}
             <CameraAnimator
               trigger={animateCamera}
+              setCamera={setAnimateCamera}
               controlsRef={controlsRef}
               screenRef={screenRef}
             />
@@ -121,7 +122,7 @@ const WorkRoom3D = () => {
           <OrbitControls
             ref={controlsRef}
             maxPolarAngle={Math.PI / 2}
-            enableZoom={true}
+            enableZoom={false}
           />
         </Canvas>
       </div>

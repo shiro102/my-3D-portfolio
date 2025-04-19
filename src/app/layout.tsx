@@ -4,6 +4,7 @@ import "./globals.css";
 import TransitionProvider from "@/components/react/transitionProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/sonner"
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
         <TransitionProvider>{children}</TransitionProvider>
         <SpeedInsights />
         <Analytics />
+        <Toaster />
       </body>
     </html>
   );

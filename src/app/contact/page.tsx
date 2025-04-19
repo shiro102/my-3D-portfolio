@@ -1,102 +1,225 @@
 "use client";
-import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useRef } from "react";
+import { Mail, Copy, Phone, MessageSquare } from "lucide-react";
+import { toast } from "sonner";
 
 const ContactPage = () => {
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  // Copy email address to clipboard
+  const now = new Date();
+
+  // Format date part: "Sunday, December 03, 2023"
+  const datePart = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  }).format(now);
+
+  // Format time part: "3:18 AM"
+  const timePart = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(now);
+
+  // Combine into final format
+  const finalFormatted = `${datePart} at ${timePart}`;
+
+  const handleClick = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast("Copied to clipboard", {
+      description: (
+        <span style={{ color: "var(--muted-foreground)" }}>
+          {finalFormatted}
+        </span>
+      ),
+      // action: {
+      //   label: "Undo",
+      //   onClick: () => console.log("Undo"),
+      // },
+    });
+  };
 
   const form = useRef<HTMLFormElement>(null);
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(false);
-    setSuccess(false);
+  // const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    if (!form.current) return;
+  //   if (!form.current) return;
 
-    emailjs
-      .sendForm(
-        process.env.NEXT_PUBLIC_SERVICE_ID || "",
-        process.env.NEXT_PUBLIC_TEMPLATE_ID || "",
-        form.current,
-        process.env.NEXT_PUBLIC_PUBLIC_KEY || ""
-      )
-      .then(
-        () => {
-          setSuccess(true);
-          form.current?.reset();
-        },
-        () => {
-          setError(true);
-        }
-      );
-  };
+  //   emailjs
+  //     .sendForm(
+  //       process.env.NEXT_PUBLIC_SERVICE_ID || "",
+  //       process.env.NEXT_PUBLIC_TEMPLATE_ID || "",
+  //       form.current,
+  //       process.env.NEXT_PUBLIC_PUBLIC_KEY || ""
+  //     )
+  //     .then(
+  //       () => {
+  //         setSuccess(true);
+  //         form.current?.reset();
+  //       },
+  //       () => {
+  //         setError(true);
+  //       }
+  //     );
+  // };
 
   return (
-    <motion.div
-      className="h-full"
-      initial={{ y: "-200vh" }}
-      animate={{ y: "0%" }}
-      transition={{ duration: 1 }}
-    >
-      <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
-        {/* TEXT CONTAINER */}
-        {/* <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center text-6xl">
-          <div>
-            {text.split("").map((letter, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 0 }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: index * 0.1,
-                }}
-              >
-                {letter}
-              </motion.span>
-            ))}
-            😊
+    <div className="w-full h-[calc(100vh-70px)] bg-gradient-to-b from-white via-blue-100 to-red-50 flex items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5">
+      <div>
+        {/* Header */}
+        <div className="flex flex-col gap-y-5">
+          {/* Title */}
+          <div className="flex flex-col gap-y-2">
+            <h1 className="text-3xl font-bold">Let&apos;s talk!</h1>
+            <h2 className="text-lg">
+              Whether you are looking to build a website, improve your platform,
+              collaborate on a project or want to know more about me, I&apos;m here
+              to talk.
+            </h2>
           </div>
-        </div> */}
-        {/* FORM CONTAINER */}
+
+          {/* Contact Cards */}
+          <div className="gap-y-5 flex flex-col">
+            <TooltipProvider delayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={() => handleClick("khaihungluong@gmail.com")}
+                    className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
+                  >
+                    <Mail className="h-5 w-5 text-[#4e74fd]" />
+                    <span className="font-semibold text-[#4e74fd]">
+                      khaihungluong@gmail.com
+                    </span>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="top"
+                  align="center"
+                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+                  onClick={() => handleClick("khaihungluong@gmail.com")}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>Copy</span>
+                    <Copy className="w-4 h-4" />
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider delayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={() => handleClick("778-583-7088")}
+                    className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
+                  >
+                    <Phone className="h-5 w-5 text-[#4e74fd]" />
+                    <span className="font-semibold text-[#4e74fd]">
+                      778-583-7088
+                    </span>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="top"
+                  align="center"
+                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+                  onClick={() => handleClick("778-583-7088")}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>Copy</span>
+                    <Copy className="w-4 h-4" />
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+        </div>
+      </div>
+
+      <div className="m-auto">Or</div>
+      {/* Input fields */}
+      <div>
         <form
-          onSubmit={sendEmail}
+          className="flex flex-col justify-center gap-y-6 my-5 mx-7 bg-white rounded-xl p-10 shadow-2xl shadow-black-200 pb-16 border border-gray-200"
           ref={form}
-          className="h-1/2 lg:h-full lg:w-1/2 bg-red-50 rounded-xl text-xl flex flex-col gap-8 justify-center p-24"
+          // onSubmit={sendEmail}
         >
-          <span>Dear Lama Dev,</span>
-          <textarea
-            rows={6}
-            className="bg-transparent border-b-2 border-b-black outline-none resize-none"
-            name="user_message"
-          />
-          <span>My mail address is:</span>
-          <input
-            name="user_email"
-            type="text"
-            className="bg-transparent border-b-2 border-b-black outline-none"
-          />
-          <span>Regards</span>
-          <button className="bg-purple-200 rounded font-semibold text-gray-600 p-4">
-            Send
+          <div className="flex text-3xl font-bold items-center gap-2"> 
+            <span>Send me a message</span>
+            <MessageSquare className="h-5 w-5" />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <label htmlFor="name" className="text-lg">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] transition-all duration-200 placeholder-gray-400"
+              placeholder="Full Name*"
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <label htmlFor="email" className="text-lg">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] transition-all duration-200 placeholder-gray-400"
+              placeholder="Email*"
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <label htmlFor="email" className="text-lg">
+              Subject
+            </label>
+            <input
+              type="text"
+              name="subject"
+              id="subject"
+              className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] transition-all duration-200 placeholder-gray-400"
+              placeholder="Subject"
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <label htmlFor="message" className="text-lg">
+              Message
+            </label>
+            <textarea
+              name="message"
+              id="message"
+              className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] min-h-28 transition-all duration-200 placeholder-gray-400"
+              placeholder="Share your thoughts or messages"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-lg p-2 bg-black text-white hover:bg-slate-700 transition-all"
+          >
+            Send Message
           </button>
-          {success && (
-            <span className="text-green-600 font-semibold">
-              Your message has been sent successfully!
-            </span>
-          )}
-          {error && (
-            <span className="text-red-600 font-semibold">
-              Something went wrong!
-            </span>
-          )}
         </form>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

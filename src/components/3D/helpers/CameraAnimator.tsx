@@ -8,11 +8,12 @@ import { MyRoomHandle } from "../components/MyRoom";
 
 interface CameraAnimatorProps {
   trigger: boolean;
+  setCamera: React.Dispatch<React.SetStateAction<boolean>>;
   controlsRef: React.RefObject<OrbitControlsProps | null>;
   screenRef: React.RefObject<MyRoomHandle | null>;
 }
 
-const CameraAnimator = ({ trigger, controlsRef, screenRef }: CameraAnimatorProps) => {
+const CameraAnimator = ({ trigger, setCamera, controlsRef, screenRef }: CameraAnimatorProps) => {
   const { camera } = useThree();
   const scaleLevel = 1/0.085
 
@@ -22,8 +23,8 @@ const CameraAnimator = ({ trigger, controlsRef, screenRef }: CameraAnimatorProps
 
       gsap.to(camera.position, {
         duration: 2,
-        x: 0 * scaleLevel,
-        y: 0 * scaleLevel,
+        x: -0.6 * scaleLevel,
+        y: 0.2 * scaleLevel,
         z: -1.5 * scaleLevel,
         ease: "power2.out",
         onUpdate: () => {
@@ -48,6 +49,8 @@ const CameraAnimator = ({ trigger, controlsRef, screenRef }: CameraAnimatorProps
               }
             },
           });
+
+          setCamera(false)
           //   const target = { ...controls.target }; // current target
           //   gsap.to(target, {
           //     duration: 1.5,

@@ -6,12 +6,12 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { myProjects } from "@/data/projects";
 
 interface WorksProps {
-  isMobile?: boolean;
+  is3D?: boolean;
 }
 
 const projectCount = myProjects.length;
 
-const Works = ({ isMobile = false }: WorksProps) => {
+const Works = ({ is3D = false }: WorksProps) => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [carouselIndex, setCarouselIndex] = useState(0);
 
@@ -52,14 +52,14 @@ const Works = ({ isMobile = false }: WorksProps) => {
   };
 
   return (
-    <section className={`${isMobile ? "px-5" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full`}>
-      <p className={`${isMobile ? "text-4xl" : "text-3xl sm:text-4xl"} font-semibold bg-gradient-to-r from-[#353639] from-60% via-[#47474c] via-60% to-[#47474c] to-100% bg-clip-text text-transparent`}>
+    <section className={`${is3D ? "pl-5 pr-10" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full`}>
+      <p className={`${is3D ? "text-4xl" : "text-3xl sm:text-4xl"} font-semibold bg-gradient-to-r from-[#353639] from-60% via-[#47474c] via-60% to-[#47474c] to-100% bg-clip-text text-transparent`}>
         My Selected Work
       </p>
 
-      <div className={`${isMobile ? "grid grid-cols-1" : "grid grid-cols-1 lg:grid-cols-2"} mt-12 gap-5 w-full`}>
+      <div className={`${is3D ? "grid grid-cols-1" : "grid grid-cols-1 lg:grid-cols-2"} mt-12 gap-5 w-full`}>
         {/* Project Description */}
-        <div className={`${isMobile ? "py-10 px-5" : "py-10 px-5 sm:p-10"} flex flex-col gap-5 relative  shadow-2xl shadow-black-200 bg-white min-h-[calc(80vh-40px)] justify-between`}>
+        <div className={`${is3D ? "py-10 px-5" : "py-10 px-5 sm:p-10"} flex flex-col gap-5 relative  shadow-2xl shadow-black-200 bg-white min-h-[calc(80vh-40px)] justify-between`}>
           <div className="absolute top-0 right-0">
             <img
               src={currentProject.spotlight}
@@ -80,12 +80,12 @@ const Works = ({ isMobile = false }: WorksProps) => {
           </div>
 
           <div className="flex flex-col gap-5 text-white-600 my-5 min-h-[30vh]">
-            <p className={`${isMobile ? "text-3xl" : "text-2xl"} text-black text-2xl font-semibold animatedText`}>
+            <p className={`${is3D ? "text-3xl" : "text-2xl"} text-black text-2xl font-semibold animatedText`}>
               {currentProject.title}
             </p>
 
-            <p className={`${isMobile ? "text-xl" : ""} animatedText `}>{currentProject.desc}</p>
-            <p className={`${isMobile ? "text-xl" : ""} animatedText `}>{currentProject.subdesc}</p>
+            <p className={`${is3D ? "text-xl" : ""} animatedText `}>{currentProject.desc}</p>
+            <p className={`${is3D ? "text-xl" : ""} animatedText `}>{currentProject.subdesc}</p>
           </div>
 
           <div className="flex items-center justify-between flex-wrap gap-5">
@@ -103,21 +103,21 @@ const Works = ({ isMobile = false }: WorksProps) => {
               target="_blank"
               rel="noreferrer"
             >
-              <p className={`${isMobile ? "text-xl" : ""}`}>Check Live Site</p>
+              <p className={`${is3D ? "text-xl" : ""} hover:text-slate-600`}>Check Live Site</p>
               <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
             </a>
           </div>
 
           <div className="flex justify-between items-center mt-7">
             <button
-              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black hover:text-[#2A1816]"
+              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black hover:text-slate-700"
               onClick={() => handleNavigation("previous")}
             >
               <ArrowLeft />
             </button>
 
             <button
-              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black hover:text-[#2A1816]"
+              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black hover:text-slate-700"
               onClick={() => handleNavigation("next")}
             >
               <ArrowRight />
@@ -126,7 +126,7 @@ const Works = ({ isMobile = false }: WorksProps) => {
         </div>
 
         {/* Image Carousel */}
-        <div className={`${isMobile ? "h-96" : "h-96 md:h-full"} relative bg-black-200 rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200`}>
+        <div className={`${is3D ? "h-96" : "h-96 md:h-full"} relative bg-black-200 rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200`}>
           <img
             src={currentProject.images[carouselIndex]}
             alt="carousel"
