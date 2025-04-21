@@ -3,11 +3,7 @@ import MyRoom from "@/components/3D/components/MyRoom";
 // import MyRoomAntique from "@/components/MyRoomAntique";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import {
-  Center,
-  OrbitControls,
-  ContactShadows,
-} from "@react-three/drei";
+import { Center, OrbitControls, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
 import CanvasLoader from "../../3D/helpers/CanvasLoader";
 import LightHelper from "../../3D/helpers/LightHelper";
@@ -59,7 +55,7 @@ const WorkRoom3D = () => {
       </div>
 
       {/* Canvas  */}
-      <div className="h-screen relative">
+      <div className="h-[calc(100vh-60px)] relative">
         <Canvas
           shadows
           camera={{
@@ -102,11 +98,11 @@ const WorkRoom3D = () => {
 
           {/* Soft contact shadow under the room */}
           <ContactShadows
-            position={[0, -3.4, 0]}
+            position={[0, -35, 0]} // or even -16
             opacity={0.3}
-            scale={10}
-            blur={2}
-            far={4.5}
+            scale={80} // match X/Z of model size
+            blur={1.5}
+            far={60} // must cover model height
           />
 
           {/* Cup's steam */}
