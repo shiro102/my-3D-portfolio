@@ -76,12 +76,12 @@ const Navbar = ({ is3D = false, locale }: NavbarProps) => {
       className={`${
         is3D
           ? "px-4 sm:px-8"
-          : "pl-4 pr-1 sm:pl-8 md:pl-7 md:pr-5 lg:pl-15 lg:pr-10"
+          : "pl-4 pr-1 sm:pl-8 md:pl-7 md:pr-2 lg:pl-15 lg:pr-4"
       } h-full flex items-center justify-between text-xl shadow-md bg-white dark:bg-black dark:text-white`}
     >
       {/* LINKS */}
       <div
-        className={`${is3D ? "flex gap-4 w-1/3" : "hidden md:flex gap-4 w-1/3"} text-lg`}
+        className={`${is3D ? "flex gap-4 w-1/3" : "hidden md:flex gap-4 w-1/3"} text-xl`}
       >
         {links.map((link) => (
           <NavLink link={link} key={link.title} is3D={is3D} locale={locale} />
@@ -135,7 +135,7 @@ const Navbar = ({ is3D = false, locale }: NavbarProps) => {
           </button>
 
           {/* LanguageChanger: Bottom-Right Corner */}
-          <div className="flex items-center px-2 py-1 border border-gray-400 dark:border-white rounded-full text-sm font-medium bg-white dark:bg-black text-black dark:text-white">
+          <div className="flex items-center justify-center px-2 py-0.5 border border-gray-400 dark:border-white rounded-full text-sm font-medium bg-white dark:bg-black text-black dark:text-white">
             <Globe className="h-4 w-4" />
             <LanguageChanger />
           </div>

@@ -37,7 +37,7 @@ const CameraAnimator = ({ trigger, setCamera, controlsRef, screenRef }: CameraAn
         onComplete: () => {
           gsap.to(camera.position, {
             duration: 2,
-            x: -0.27 * scaleLevel,
+            x: -0.17 * scaleLevel,
             y: -0.27 * scaleLevel,
             z: -1.52 * scaleLevel,
             ease: "power2.out",
