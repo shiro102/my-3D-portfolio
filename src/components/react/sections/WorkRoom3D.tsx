@@ -134,9 +134,9 @@ const WorkRoom3D = () => {
           {/* Cup's steam */}
           <SteamRibbon
             position={[
-              -0.07 * scaleLevel,
-              -0.52 * scaleLevel,
-              -0.79 * scaleLevel,
+              0.02 * scaleLevel,
+              -0.65 * scaleLevel,
+              -0.55 * scaleLevel,
             ]}
           />
 
