@@ -481,7 +481,7 @@ const MyRoom = forwardRef<
                 <group
                   ref={buttonToScreenRef}
                   name="FloatingButton"
-                  position={[1.659, -1.032, 1.61]}
+                  position={[1.659, -1.09, 1.61]}
                   rotation={[-Math.PI / 2, 1.478, -Math.PI]}
                   scale={0.476}
                 >
