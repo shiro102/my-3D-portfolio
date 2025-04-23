@@ -19,10 +19,13 @@ import { useFrame } from "@react-three/fiber";
 import Works from "@/components/react/sections/Work";
 import Navbar from "@/components/react/navbar";
 import { DarkModeContext } from "@/components/react/context/DarkModeContext";
-
+import { useTranslation } from "react-i18next";
+import { Poppins } from "next/font/google";
 export interface MyRoomHandle {
   screen: THREE.Object3D | null;
 }
+
+const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 const MyRoom = forwardRef<
   MyRoomHandle,
@@ -41,6 +44,7 @@ const MyRoom = forwardRef<
     const screenRef = useRef<THREE.Mesh>(null);
     const scaleLevel = 1 / 0.085;
     const buttonToScreenRef = useRef<THREE.Group>(null);
+    const { t } = useTranslation("");
 
     // const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
     // Context Bridge to connect with outside context
@@ -514,7 +518,7 @@ const MyRoom = forwardRef<
                         material={materials["screen.002"]}
                       >
                         <Html
-                          className="w-[335px] h-[215px] rounded-[3px] overflow-y-auto p-0 bg-black hover:opacity-90 overflow-x-hidden"
+                          className="w-[335px] h-[215px] rounded-[8px] overflow-y-auto p-0 bg-black hover:opacity-90 overflow-x-hidden"
                           position={[0, 0.05, -0.09]}
                           occlude="blending"
                           rotation-x={-Math.PI / 2}
@@ -526,10 +530,10 @@ const MyRoom = forwardRef<
                           >
                             <div className="absolute top-0 left-0 h-5 bg-amber-50 w-[110%]" />
                             <button
-                              className=" text-white shadow rounded text-5xl cursor-pointer h-full w-full font-bold"
+                              className={`text-white shadow rounded text-5xl cursor-pointer h-full w-full font-bold ${poppins.className}`}
                               onClick={() => setCamera(true)}
                             >
-                              <p className="pb-3">View Laptop</p>
+                              <p className="pb-3">{t("workroom3D-viewlaptop")}</p>
                               <p>&gt;_</p>
                             </button>
                           </div>

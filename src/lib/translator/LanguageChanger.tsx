@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
-import i18nConfig from '../../../i18nConfig';
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import i18nConfig from "../../../i18nConfig";
 
 export default function LanguageChanger() {
   const { i18n } = useTranslation();
@@ -26,7 +26,7 @@ export default function LanguageChanger() {
       currentLocale === i18nConfig.defaultLocale &&
       !i18nConfig.prefixDefault
     ) {
-      router.push('/' + newLocale + currentPathname);
+      router.push("/" + newLocale + currentPathname);
     } else {
       router.push(
         currentPathname.replace(`/${currentLocale}`, `/${newLocale}`)
@@ -37,10 +37,29 @@ export default function LanguageChanger() {
   };
 
   return (
-    <select onChange={handleChange} value={currentLocale} className='text-textColor'>
-      <option value="en">English</option>
-      <option value="vi">Tiếng Việt</option>
-      <option value="fr">Français</option>
+    <select
+      onChange={handleChange}
+      value={currentLocale}
+      className="bg-transparent focus:outline-none cursor-pointer text-[12px] w-[80px]"
+    >
+      <option
+        className="bg-white text-black dark:bg-black dark:text-white"
+        value="en"
+      >
+        English
+      </option>
+      <option
+        className="bg-white text-black dark:bg-black dark:text-white"
+        value="vi"
+      >
+        Tiếng Việt
+      </option>
+      <option
+        className="bg-white text-black dark:bg-black dark:text-white"
+        value="fr"
+      >
+        Français
+      </option>
     </select>
   );
 }

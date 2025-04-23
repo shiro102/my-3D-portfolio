@@ -1,3 +1,4 @@
+"use client"
 import React, { useRef, useState, useEffect } from "react";
 import MyRoom from "@/components/3D/components/MyRoom";
 // import MyRoomAntique from "@/components/MyRoomAntique";
@@ -13,6 +14,7 @@ import SteamRibbon from "@/components/3D/components/SteamRibbon";
 import { Leva, useControls, button } from "leva";
 import { MyRoomHandle } from "@/components/3D/components/MyRoom";
 import { useDarkMode } from "../context/DarkModeContext";
+import { useTranslation } from "react-i18next";
 
 // import { CameraToObjectRay } from "@/components/3D/helpers/CameraToObjectRay";
 // import { ObjectCenterMarker } from "@/components/3D/helpers/ObjectCenterMarker";
@@ -25,6 +27,7 @@ const WorkRoom3D = () => {
   const scaleLevel = 1 / 0.085;
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const { toggleDarkMode } = useDarkMode();
+  const { t } = useTranslation("");
 
   // 🛠️ Panel toggle
   const { zoom } = useControls(
@@ -70,10 +73,10 @@ const WorkRoom3D = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50 pt-5 relative dark:from-[#171d2d] dark:to-[#040211] dark:text-white -mt-1">
       <div className="flex justify-center items-center text-4xl md:text-6xl font-bold">
-        My Work Room
+        {t("workroom3D-header")}
       </div>
       {/* Leva panel */}
-      <div className="absolute top-23 left-5 z-[999]">
+      <div className="absolute top-23 left-5 z-40">
         <Leva titleBar={true} fill />
       </div>
 
@@ -133,7 +136,7 @@ const WorkRoom3D = () => {
             position={[
               0.3 * scaleLevel,
               -0.47 * scaleLevel,
-              -0.78 * scaleLevel,
+              -1.05 * scaleLevel,
             ]}
           />
 

@@ -5,7 +5,13 @@ import Navbar from "./navbar";
 // import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
-const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
+const TransitionProvider = ({
+  locale,
+  children,
+}: {
+  locale: string;
+  children: React.ReactNode;
+}) => {
   const pathName = usePathname();
 
   return (
@@ -31,16 +37,20 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
           initial={{ height: "140vh" }}
           animate={{ height: "0vh", transition: { delay: 0.5 } }}
         /> */}
+        {/* {pathName !== `/${locale}` && (
+          <div className="w-full">
+            <Header />
+          </div>
+        )} */}
 
-        {pathName !== "/" && (
+        {/* navbar to stick to the main div */}
+        {pathName !== `/${locale}` && (
           <div className="h-[70px] sticky top-0 left-0 right-0 z-50">
-            <Navbar />
+            <Navbar locale={locale} />
           </div>
         )}
 
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </div>
     </AnimatePresence>
   );
