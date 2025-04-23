@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useRef } from "react";
-import { Mail, Copy, Phone, MessageSquare } from "lucide-react";
+import { Mail, Copy, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { sendEmail } from "@/lib/actions/email/sendEmail";
 
@@ -67,7 +67,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-70px)] bg-gradient-to-b from-white via-blue-100 to-red-50 flex items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5">
+    <div className="w-full bg-gradient-to-b from-white via-blue-50 to-red-50 flex items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5 dark:from-[#212121] dark:via-[#171d2d] dark:to-[#040211] dark:text-white">
       <div>
         {/* Header */}
         <div className="flex flex-col gap-y-5">
@@ -146,13 +146,12 @@ const ContactPage = () => {
       {/* Input fields */}
       <div>
         <form
-          className="flex flex-col justify-center gap-y-6 my-5 mx-7 bg-white rounded-xl p-10 shadow-2xl shadow-black-200 pb-16 border border-gray-200"
+          className="flex flex-col justify-center gap-y-6 my-5 mx-7 bg-white rounded-xl p-10 shadow-2xl shadow-black-200 pb-16 border border-gray-200 text-black"
           ref={formRef}
           onSubmit={handleEmailClick}
         >
-          <div className="flex text-3xl font-bold items-center gap-2">
-            <span>Send me a message</span>
-            <MessageSquare className="h-5 w-5" />
+          <div className="flex items-center gap-2 text-3xl font-bold">
+            <span className="text-3xl font-bold">Send me a message 💬</span>
           </div>
 
           <div className="flex flex-col gap-y-2">

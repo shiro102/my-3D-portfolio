@@ -52,14 +52,23 @@ const Works = ({ is3D = false }: WorksProps) => {
   };
 
   return (
-    <section className={`${is3D ? "pl-5 pr-10" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full`}>
-      <p className={`${is3D ? "text-4xl" : "text-3xl sm:text-4xl"} font-semibold bg-gradient-to-r from-[#353639] from-60% via-[#47474c] via-60% to-[#47474c] to-100% bg-clip-text text-transparent`}>
+    <section
+      className={`${is3D ? "pl-5 pr-10" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full dark:from-[#212121] dark:via-[#171d2d] dark:to-[#040211] dark:text-white`}
+    >
+      <p
+        className={`${is3D ? "text-4xl" : "text-3xl sm:text-4xl"} font-semibold bg-gradient-to-r from-[#353639] via-[#47474c] to-[#47474c] bg-clip-text text-transparent 
+    dark:from-[#d2d3d4] dark:via-[#f0f0f0] dark:to-[#c8c8c8]`}
+      >
         My Selected Work
       </p>
 
-      <div className={`${is3D ? "grid grid-cols-1" : "grid grid-cols-1 lg:grid-cols-2"} mt-12 gap-5 w-full`}>
+      <div
+        className={`${is3D ? "grid grid-cols-1" : "grid grid-cols-1 lg:grid-cols-2"} mt-12 gap-5 w-full`}
+      >
         {/* Project Description */}
-        <div className={`${is3D ? "py-10 px-5" : "py-10 px-5 sm:p-10"} flex flex-col gap-5 relative  shadow-2xl shadow-black-200 bg-white min-h-[calc(80vh-40px)] justify-between`}>
+        <div
+          className={`${is3D ? "py-10 px-5" : "py-10 px-5 sm:p-10"} flex flex-col gap-5 relative shadow-2xl shadow-black-200 bg-white dark:bg-[#111112] min-h-[calc(80vh-40px)] justify-between`}
+        >
           <div className="absolute top-0 right-0">
             <img
               src={currentProject.spotlight}
@@ -79,13 +88,19 @@ const Works = ({ is3D = false }: WorksProps) => {
             />
           </div>
 
-          <div className="flex flex-col gap-5 text-white-600 my-5 min-h-[30vh]">
-            <p className={`${is3D ? "text-3xl" : "text-2xl"} text-black text-2xl font-semibold animatedText`}>
+          <div className="flex flex-col gap-5 text-neutral-700 dark:text-neutral-300 my-5 min-h-[30vh]">
+            <p
+              className={`${is3D ? "text-3xl" : "text-2xl"} font-semibold animatedText text-black dark:text-white`}
+            >
               {currentProject.title}
             </p>
 
-            <p className={`${is3D ? "text-xl" : ""} animatedText `}>{currentProject.desc}</p>
-            <p className={`${is3D ? "text-xl" : ""} animatedText `}>{currentProject.subdesc}</p>
+            <p className={`${is3D ? "text-xl" : ""} animatedText`}>
+              {currentProject.desc}
+            </p>
+            <p className={`${is3D ? "text-xl" : ""} animatedText`}>
+              {currentProject.subdesc}
+            </p>
           </div>
 
           <div className="flex items-center justify-between flex-wrap gap-5">
@@ -98,26 +113,26 @@ const Works = ({ is3D = false }: WorksProps) => {
             </div>
 
             <a
-              className="flex items-center gap-2 cursor-pointer text-white-600"
+              className="flex items-center gap-2 cursor-pointer text-neutral-600 dark:text-neutral-300 hover:text-slate-600 dark:hover:text-white transition"
               href={currentProject.href}
               target="_blank"
               rel="noreferrer"
             >
-              <p className={`${is3D ? "text-xl" : ""} hover:text-slate-600`}>Check Live Site</p>
+              <p className={`${is3D ? "text-xl" : ""}`}>Check Live Site</p>
               <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
             </a>
           </div>
 
           <div className="flex justify-between items-center mt-7">
             <button
-              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black hover:text-slate-700"
+              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black dark:text-white hover:text-slate-700 dark:hover:text-slate-300"
               onClick={() => handleNavigation("previous")}
             >
               <ArrowLeft />
             </button>
 
             <button
-              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black hover:text-slate-700"
+              className="w-10 h-10 flex items-center justify-center p-2 cursor-pointer active:scale-95 transition-all rounded-full text-black dark:text-white hover:text-slate-700 dark:hover:text-slate-300"
               onClick={() => handleNavigation("next")}
             >
               <ArrowRight />
@@ -126,7 +141,9 @@ const Works = ({ is3D = false }: WorksProps) => {
         </div>
 
         {/* Image Carousel */}
-        <div className={`${is3D ? "h-96" : "h-96 md:h-full"} relative bg-black-200 rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200`}>
+        <div
+          className={`${is3D ? "h-96" : "h-96 md:h-full"} relative bg-neutral-200 dark:bg-[#0e0e0e] rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200`}
+        >
           <img
             src={currentProject.images[carouselIndex]}
             alt="carousel"
@@ -134,17 +151,17 @@ const Works = ({ is3D = false }: WorksProps) => {
           />
 
           <button
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white cursor-pointer active:scale-95 transition-all"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-white/20 p-2 rounded-full hover:bg-white dark:hover:bg-white/40 cursor-pointer active:scale-95 transition-all"
             onClick={() => handleCarouselNav("prev")}
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-5 h-5 text-black dark:text-white" />
           </button>
 
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white cursor-pointer active:scale-95 transition-all"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-white/20 p-2 rounded-full hover:bg-white dark:hover:bg-white/40 cursor-pointer active:scale-95 transition-all"
             onClick={() => handleCarouselNav("next")}
           >
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5 text-black dark:text-white" />
           </button>
         </div>
       </div>

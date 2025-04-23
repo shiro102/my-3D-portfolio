@@ -10,8 +10,10 @@ import LightHelper from "../../3D/helpers/LightHelper";
 import CameraAnimator from "@/components/3D/helpers/CameraAnimator";
 import { OrbitControls as OrbitControlsProps } from "three-stdlib";
 import SteamRibbon from "@/components/3D/components/SteamRibbon";
-import { Leva, useControls } from "leva";
+import { Leva, useControls, button } from "leva";
 import { MyRoomHandle } from "@/components/3D/components/MyRoom";
+import { useDarkMode } from "../context/DarkModeContext";
+
 // import { CameraToObjectRay } from "@/components/3D/helpers/CameraToObjectRay";
 // import { ObjectCenterMarker } from "@/components/3D/helpers/ObjectCenterMarker";
 
@@ -21,13 +23,34 @@ const WorkRoom3D = () => {
   const screenRef = useRef<MyRoomHandle>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera>(null!);
   const scaleLevel = 1 / 0.085;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const { toggleDarkMode } = useDarkMode();
+
   // 🛠️ Panel toggle
-  const { showLightHelpers } = useControls("Helpers", {
-    showLightHelpers: false,
-  });
-  const { zoom } = useControls("Camera", {
-    zoom: { value: 50, min: 10, max: 100, step: 1 },
-  });
+  const { zoom } = useControls(
+    "Zoom",
+    {
+      zoom: { value: isMobile? 70: 60, min: 10, max: 100, step: 1, label: "Camera FOV" },
+    },
+    {
+      collapsed: isMobile,
+    }
+  );
+
+  const { showLightHelpers } = useControls(
+    "Helpers",
+    {
+      "View Laptop": button(() => setAnimateCamera(true)),
+      "Toggle Dark Mode": button(() => toggleDarkMode()),
+      showLightHelpers: {
+        value: false,
+        label: "Show Light Rays",
+      },
+    },
+    {
+      collapsed: isMobile,
+    }
+  );
 
   useEffect(() => {
     if (cameraRef.current) {
@@ -45,21 +68,21 @@ const WorkRoom3D = () => {
   // }, [screenMesh]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50 pt-5 relative">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50 pt-5 relative dark:from-[#171d2d] dark:to-[#040211] dark:text-white -mt-1">
       <div className="flex justify-center items-center text-4xl md:text-6xl font-bold">
         My Work Room
       </div>
       {/* Leva panel */}
-      <div className="absolute top-48 left-10 z-50">
+      <div className="absolute top-23 left-5 z-[999]">
         <Leva titleBar={true} fill />
       </div>
 
       {/* Canvas  */}
-      <div className="h-[calc(100vh-60px)] relative">
+      <div className="h-[calc(100vh-60px)] relative z-0">
         <Canvas
           shadows
           camera={{
-            position: [3.7 * scaleLevel, 3.5 * scaleLevel, 5 * scaleLevel],
+            position: [3.5 * scaleLevel, 3.8 * scaleLevel, 2.9 * scaleLevel],
             fov: zoom,
           }}
           onCreated={({ gl, camera }) => {
@@ -108,9 +131,9 @@ const WorkRoom3D = () => {
           {/* Cup's steam */}
           <SteamRibbon
             position={[
-              -0.11 * scaleLevel,
+              0.3 * scaleLevel,
               -0.47 * scaleLevel,
-              -1.04 * scaleLevel,
+              -0.78 * scaleLevel,
             ]}
           />
 

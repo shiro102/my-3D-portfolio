@@ -9,7 +9,7 @@ const Homepage = () => {
       <section id="hero">
         <HeroIntro2D />
       </section>
-      <section id="work">
+      <section id="work" className=""> 
         <WorkRoom3D />
       </section>
 

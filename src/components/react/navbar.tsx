@@ -34,7 +34,7 @@ const Navbar = ({ is3D = false }: NavbarProps) => {
 
   const topVariants = {
     closed: { rotate: 0 },
-    opened: { rotate: 45, backgroundColor: "rgb(255,255,255)" },
+    opened: { rotate: 45 },
   };
   const centerVariants = {
     closed: { opacity: 1 },
@@ -42,7 +42,7 @@ const Navbar = ({ is3D = false }: NavbarProps) => {
   };
   const bottomVariants = {
     closed: { rotate: 0 },
-    opened: { rotate: -45, backgroundColor: "rgb(255,255,255)" },
+    opened: { rotate: -45 },
   };
   const listVariants = {
     closed: { x: "100vw" },
@@ -65,7 +65,7 @@ const Navbar = ({ is3D = false }: NavbarProps) => {
       } h-full flex items-center justify-between text-xl shadow-md bg-white dark:bg-black dark:text-white`}
     >
       {/* LINKS */}
-      <div className="hidden md:flex gap-4 w-1/3">
+      <div className={`${is3D? "flex gap-4 w-1/3": "hidden md:flex gap-4 w-1/3"}`}>
         {links.map((link) => (
           <NavLink link={link} key={link.title} is3D={is3D} />
         ))}
@@ -81,7 +81,7 @@ const Navbar = ({ is3D = false }: NavbarProps) => {
       </div>
 
       {/* SOCIAL + THEME TOGGLE */}
-      <div className="hidden md:flex gap-4 w-1/3 md:items-center md:justify-center">
+      <div className={`${is3D? "flex gap-4 w-1/3 items-center justify-center": "hidden md:flex gap-4 w-1/3 md:items-center md:justify-center"}`}>
         <Link href="/">
           <Image
             src="/github.png"
@@ -111,7 +111,8 @@ const Navbar = ({ is3D = false }: NavbarProps) => {
       </div>
 
       {/* RESPONSIVE MENU */}
-      <div className="md:hidden">
+      <div className={`${
+          is3D ? "hidden": "md:hidden"}`}>
         <button
           className="w-10 h-8 flex flex-col justify-between z-50 relative"
           onClick={() => setOpen((prev) => !prev)}
@@ -138,7 +139,7 @@ const Navbar = ({ is3D = false }: NavbarProps) => {
             variants={listVariants}
             initial="closed"
             animate="opened"
-            className="absolute top-0 left-0 w-screen h-screen bg-black text-white dark:bg-white dark:text-black flex flex-col items-center justify-center gap-8 text-4xl z-40"
+            className="absolute top-0 left-0 w-screen h-screen bg-white text-black dark:bg-black dark:text-white flex flex-col items-center justify-center gap-8 text-4xl z-40"
           >
             {links.map((link) => (
               <motion.div variants={listItemVariants} key={link.title}>
@@ -148,7 +149,7 @@ const Navbar = ({ is3D = false }: NavbarProps) => {
             <motion.button
               variants={listItemVariants}
               onClick={toggleDarkMode}
-              className="text-lg px-4 py-2 rounded bg-white text-black dark:bg-black dark:text-white"
+              className="text-lg px-4 py-2 rounded bg-white text-black dark:bg-black dark:text-white border border-gray-400 dark:border-gray-300"
             >
               {isDark ? "🌙 Dark" : "☀️ Light"}
             </motion.button>
