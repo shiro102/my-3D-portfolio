@@ -50,6 +50,7 @@ export const myProjects = [
       },
     ],
     images: [
+      "https://drive.google.com/thumbnail?id=1FnuM2P5A4iVxwZ9DMOI-DQoXdP44OZ_9&sz=w3000",
       "https://drive.google.com/thumbnail?id=1-bCTpz-cDtDDofBBgUvPhRaUIcnroxJt&sz=w2000",
       "https://drive.google.com/thumbnail?id=1joLQ1KQJXUX5Ku2af_QH7hzGOvGzdUut&sz=w1000",
       "https://drive.google.com/thumbnail?id=1_Hta1UcGoU0-4NuY98bgxUUtZaZIA14u&sz=w1000",
