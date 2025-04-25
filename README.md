@@ -1,4 +1,7 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project, the first world in my 3D World project series, which aims to utilize the beauty of 3D models in modern-day web development.
+
+Other worlds:
+- [Second World](https://github.com/shiro102/3DW-2ndW)
 
 ## Getting Started
 
