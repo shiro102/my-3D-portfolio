@@ -216,8 +216,8 @@ const About = () => {
                   <div className="p-3 text-red-400 text-sm font-semibold">
                     Dec, 2024 - {t("present")}
                   </div>
-                  {/* JOB COMPANY */}
-                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit text-black">
+                  {/* JOB COMPANY */} 
+                  <div className="p-1 rounded bg-white font-semibold w-fit text-black sm:text-sm text-xs">
                     {t("experience-joblocation1")}
                   </div>
                 </div>
@@ -259,7 +259,7 @@ const About = () => {
                     Nov, 2023 - Nov, 2024
                   </div>
                   {/* JOB COMPANY */}
-                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit text-black">
+                  <div className="p-1 rounded bg-white sm:text-sm text-xs font-semibold w-fit text-black">
                     D3 Security
                   </div>
                 </div>
@@ -281,7 +281,7 @@ const About = () => {
                     May, 2022 - Apr, 2023{" "}
                   </div>
                   {/* JOB COMPANY */}
-                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit text-black">
+                  <div className="p-1 rounded bg-white sm:text-sm text-xs font-semibold w-fit text-black">
                   {t("experience-joblocation1")}
                   </div>
                 </div>
