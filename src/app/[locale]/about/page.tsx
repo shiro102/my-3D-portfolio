@@ -256,7 +256,7 @@ const About = () => {
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
-                    Nov, 2023 - Nov, 2024
+                    May, 2023 - Nov, 2024
                   </div>
                   {/* JOB COMPANY */}
                   <div className="p-1 rounded bg-white sm:text-sm text-xs font-semibold w-fit text-black">
@@ -278,7 +278,7 @@ const About = () => {
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
-                    May, 2022 - Apr, 2023{" "}
+                    May, 2022 - Apr, 2023
                   </div>
                   {/* JOB COMPANY */}
                   <div className="p-1 rounded bg-white sm:text-sm text-xs font-semibold w-fit text-black">
