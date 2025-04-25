@@ -72,7 +72,7 @@ const WorkRoom3D = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50 pt-5 relative dark:from-[#171d2d] dark:to-[#040211] dark:text-white -mt-1">
-      <div className="flex justify-center items-center text-4xl md:text-6xl font-bold">
+      <div className="flex justify-center items-center text-4xl md:text-6xl font-bold font-[--font-tai-heritage-pro]">
         {t("workroom3D-header")}
       </div>
       {/* Leva panel */}

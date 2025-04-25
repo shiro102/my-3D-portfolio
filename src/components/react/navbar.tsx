@@ -77,7 +77,7 @@ const Navbar = ({ is3D = false, locale }: NavbarProps) => {
         is3D
           ? "px-4 sm:px-8"
           : "pl-4 pr-1 sm:pl-8 md:pl-7 md:pr-2 lg:pl-15 lg:pr-4"
-      } h-full flex items-center justify-between text-xl shadow-md bg-white dark:bg-black dark:text-white`}
+      } h-full flex items-center justify-between text-xl shadow-md bg-white dark:bg-black dark:text-white font-[--font-tai-heritage-pro]`}
     >
       {/* LINKS */}
       <div

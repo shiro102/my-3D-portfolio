@@ -4,6 +4,9 @@ import { useGSAP } from "@gsap/react";
 import { useState, useEffect } from "react";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { myProjects } from "@/data/projects";
+import Image from "next/image";
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 interface WorksProps {
   is3D?: boolean;
@@ -14,6 +17,7 @@ const projectCount = myProjects.length;
 const Works = ({ is3D = false }: WorksProps) => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const { t } = useTranslation("");
 
   // Track carousel
   useEffect(() => {
@@ -57,9 +61,9 @@ const Works = ({ is3D = false }: WorksProps) => {
     >
       <p
         className={`${is3D ? "text-4xl" : "text-3xl sm:text-4xl"} font-semibold bg-gradient-to-r from-[#353639] via-[#47474c] to-[#47474c] bg-clip-text text-transparent 
-    dark:from-[#d2d3d4] dark:via-[#f0f0f0] dark:to-[#c8c8c8]`}
+    dark:from-[#d2d3d4] dark:via-[#f0f0f0] dark:to-[#c8c8c8] font-[--font-tai-heritage-pro]`}
       >
-        My Selected Work
+        {t("work-header")}
       </p>
 
       <div
@@ -73,16 +77,17 @@ const Works = ({ is3D = false }: WorksProps) => {
             <img
               src={currentProject.spotlight}
               alt="spotlight"
-              className="w-full h-96 object-cover rounded-xl"
+              className="w-full h-96 object-cover rounded-xl filter brightness-110 contrast-125 saturate-150 
+             dark:brightness-100 dark:contrast-110 dark:saturate-130"
             />
           </div>
 
           <div
-            className="p-3 backdrop-filter backdrop-blur-3xl w-fit rounded-lg"
+            className="backdrop-filter backdrop-blur-3xl w-fit rounded-md"
             style={currentProject.logoStyle}
           >
             <img
-              className="w-10 h-10 shadow-sm"
+              className="w-15 h-15 shadow-sm"
               src={currentProject.logo}
               alt="logo"
             />
@@ -92,14 +97,14 @@ const Works = ({ is3D = false }: WorksProps) => {
             <p
               className={`${is3D ? "text-3xl" : "text-2xl"} font-semibold animatedText text-black dark:text-white`}
             >
-              {currentProject.title}
+              {t(currentProject.title)}
             </p>
 
             <p className={`${is3D ? "text-xl" : ""} animatedText`}>
-              {currentProject.desc}
+              {t(currentProject.desc)}
             </p>
             <p className={`${is3D ? "text-xl" : ""} animatedText`}>
-              {currentProject.subdesc}
+              {t(currentProject.subdesc)}
             </p>
           </div>
 
@@ -107,7 +112,15 @@ const Works = ({ is3D = false }: WorksProps) => {
             <div className="flex items-center gap-3">
               {currentProject.tags.map((tag, index) => (
                 <div key={index} className="tech-logo">
-                  <img src={tag.path} alt={tag.name} />
+                  <Link href={tag.url}>
+                    <Image
+                      src={tag.path}
+                      alt={tag.name}
+                      width={30}
+                      height={30}
+                      className={`${["Next.js", "ExpressJS", "Three.js", "WebGL"].includes(tag.name) ? "invert-0 dark:invert" : ""}`}
+                    />
+                  </Link>
                 </div>
               ))}
             </div>
@@ -118,7 +131,7 @@ const Works = ({ is3D = false }: WorksProps) => {
               target="_blank"
               rel="noreferrer"
             >
-              <p className={`${is3D ? "text-xl" : ""}`}>Check Live Site</p>
+              <p className={`${is3D ? "text-xl" : ""}`}>{t("work-checksite")}</p>
               <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
             </a>
           </div>
@@ -144,21 +157,22 @@ const Works = ({ is3D = false }: WorksProps) => {
         <div
           className={`${is3D ? "h-96" : "h-96 md:h-full"} relative bg-neutral-200 dark:bg-[#0e0e0e] rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200`}
         >
-          <img
+          <Image
             src={currentProject.images[carouselIndex]}
             alt="carousel"
-            className="object-cover h-full w-full rounded-lg"
+            fill
+            className="object-contain rounded-lg"
           />
 
           <button
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-white/20 p-2 rounded-full hover:bg-white dark:hover:bg-white/40 cursor-pointer active:scale-95 transition-all"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/20 p-2 rounded-full hover:bg-white dark:hover:bg-black/40 cursor-pointer active:scale-95 transition-all"
             onClick={() => handleCarouselNav("prev")}
           >
             <ArrowLeft className="w-5 h-5 text-black dark:text-white" />
           </button>
 
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-white/20 p-2 rounded-full hover:bg-white dark:hover:bg-white/40 cursor-pointer active:scale-95 transition-all"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/20 p-2 rounded-full hover:bg-white dark:hover:bg-black/40 cursor-pointer active:scale-95 transition-all"
             onClick={() => handleCarouselNav("next")}
           >
             <ArrowRight className="w-5 h-5 text-black dark:text-white" />

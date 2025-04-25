@@ -56,7 +56,7 @@ const LightHelper = ({ showHelpers = false }: { showHelpers?: boolean }) => {
         <directionalLight
           ref={lightRef}
           castShadow
-          position={[-3 * scaleLevel, 1.5 * scaleLevel, -1 * scaleLevel]}
+          position={[-3 * scaleLevel, 1.5 * scaleLevel, -0.8 * scaleLevel]}
           intensity={6}
           color={0xffffcc}
           shadow-mapSize-width={1024}
@@ -64,7 +64,7 @@ const LightHelper = ({ showHelpers = false }: { showHelpers?: boolean }) => {
           shadow-camera-near={0.5 * scaleLevel}
           shadow-camera-far={20 * scaleLevel}
           shadow-camera-left={-3 * scaleLevel}
-          shadow-camera-right={2 * scaleLevel}
+          shadow-camera-right={4 * scaleLevel}
           shadow-camera-top={0.1 * scaleLevel}
           shadow-camera-bottom={-3 * scaleLevel}
           shadow-bias={-0.0001}

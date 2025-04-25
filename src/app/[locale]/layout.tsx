@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Tai_Heritage_Pro } from "next/font/google";
+import { Tai_Heritage_Pro, Poppins } from "next/font/google";
 import "../../app/globals.css";
 import TransitionProvider from "@/components/react/transitionProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -12,11 +12,13 @@ import initTranslation from "../i18n";
 // namespaces for translations
 const i18nNamespaces = ["default"];
 
+// font for the website
 const taipro = Tai_Heritage_Pro({
   weight: ["400", "700"],
   subsets: ["tai-viet"],
   variable: "--font-tai-heritage-pro",
 });
+const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Khai Hung Luong - Portfolio",
@@ -56,7 +58,7 @@ export default async function RootLayout({
       resources={resources}
     >
       <html lang="en">
-        <body className={`${taipro.className}`}>
+        <body className={`antialiased ${poppins.className} ${taipro.variable}`}>
           <DarkModeClientProvider>
             <TransitionProvider locale={locale}>{children}</TransitionProvider>
           </DarkModeClientProvider>

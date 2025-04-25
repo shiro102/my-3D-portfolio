@@ -26,9 +26,9 @@ const HeroIntro2D = ({ locale }: { locale: string }) => {
       {/* Main Content */}
       <div className="h-[calc(100vh-70px)] flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
         {/* IMAGE CONTAINER */}
-        <div className="h-[45%] lg:h-full lg:w-1/2 relative [@media(max-height:700px)_and_(max-width:40rem)]:h-1/4 [@media(max-height:800px)_and_(max-width:40rem)_and_(min-height:701rem)]:h-1/3">
+        <div className="h-[45%] lg:h-full lg:w-1/2 relative [@media(max-height:700px)_and_(max-width:40rem)]:h-1/4 [@media(max-height:800px)_and_(max-width:40rem)_and_(min-height:701px)]:h-1/3">
           <Image
-            src="/hero.png"
+            src="https://drive.google.com/thumbnail?id=17R13H65ccXJ6U4POHungzxX_YlL_TNgs&sz=w2000"
             alt=""
             fill
             className="object-contain"
@@ -36,13 +36,13 @@ const HeroIntro2D = ({ locale }: { locale: string }) => {
           />
         </div>
         {/* TEXT CONTAINER */}
-        <div className="h-[55%] lg:h-full lg:w-1/2 flex flex-col gap-4 md:gap-6 lg:gap-8 items-center justify-center pt-1 [@media(max-height:700px)_and_(max-width:40rem)]:h-3/4 [@media(max-height:800px)_and_(max-width:40rem)_and_(min-height:701rem)]:h-2/3">
+        <div className="h-[55%] lg:h-full lg:w-1/2 flex flex-col gap-4 md:gap-6 lg:gap-8 items-center justify-center pt-1 [@media(max-height:700px)_and_(max-width:40rem)]:h-3/4 [@media(max-height:800px)_and_(max-width:40rem)_and_(min-height:701px)]:h-2/3">
           {/* TITLE */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] lg:leading-[1]">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] lg:leading-[1] font-[--font-tai-heritage-pro]">
             {t("hero2D-header")}
           </h1>
           {/* DESC */}
-          <p className="md:text-xl">{t("hero2D-description")} </p>
+          <p className="md:text-xl font-[--font-tai-heritage-pro]">{t("hero2D-description")} </p>
           {/* BUTTONS */}
           <div className="w-full flex gap-4">
             <Link href="#work">
