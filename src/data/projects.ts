@@ -63,8 +63,8 @@ export const myProjects = [
     href: "https://github.com/shiro102/my-3D-portfolio",
     logo: "/assets/3DW.jpeg",
     logoStyle: {
-      backgroundColor: "#0E1F38",
-      border: "0.2px solid #0E2D58",
+      backgroundColor: "#transparent",
+      border: "0.2px solid transparent",
       boxShadow: "0px 0px 60px 0px #2F67B64D",
     },
     spotlight: "/assets/spotlight4.png",
@@ -156,7 +156,7 @@ export const myProjects = [
   },
   {
     title: "project4-title",
-    desc: "",
+    desc: "project4-desc",
     subdesc:
       "project4-subdesc",
     href: "https://ncra.ca/",

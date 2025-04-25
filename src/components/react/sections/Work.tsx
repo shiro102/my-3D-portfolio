@@ -95,7 +95,7 @@ const Works = ({ is3D = false }: WorksProps) => {
 
           <div className="flex flex-col gap-5 text-neutral-700 dark:text-neutral-300 my-5 min-h-[30vh]">
             <p
-              className={`${is3D ? "text-3xl" : "text-2xl"} font-semibold animatedText text-black dark:text-white`}
+              className={`${is3D ? "text-3xl" : "text-2xl"} font-semibold animatedText text-black dark:text-white font-[--font-tai-heritage-pro]`}
             >
               {t(currentProject.title)}
             </p>

@@ -135,7 +135,7 @@ const Navbar = ({ is3D = false, locale }: NavbarProps) => {
           </button>
 
           {/* LanguageChanger: Bottom-Right Corner */}
-          <div className="flex items-center justify-center px-2 py-0.5 border border-gray-400 dark:border-white rounded-full text-sm font-medium bg-white dark:bg-black text-black dark:text-white">
+          <div className="flex items-center justify-center px-2 py-1.5 border border-gray-400 dark:border-white rounded-full text-sm font-medium bg-white dark:bg-black text-black dark:text-white">
             <Globe className="h-4 w-4" />
             <LanguageChanger />
           </div>

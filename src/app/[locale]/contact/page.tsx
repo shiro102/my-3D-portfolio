@@ -9,10 +9,12 @@ import { useRef } from "react";
 import { Mail, Copy, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { sendEmail } from "@/lib/actions/email/sendEmail";
+import { useTranslation } from "react-i18next";
 
 const ContactPage = () => {
   // Copy email address to clipboard
   const now = new Date();
+  const {t} = useTranslation('')
 
   // Format date part: "Sunday, December 03, 2023"
   const datePart = new Intl.DateTimeFormat("en-US", {
@@ -73,12 +75,8 @@ const ContactPage = () => {
         <div className="flex flex-col gap-y-5">
           {/* Title */}
           <div className="flex flex-col gap-y-2">
-            <h1 className="text-3xl font-bold">Let&apos;s talk!</h1>
-            <h2 className="text-lg">
-              Whether you are looking to build a website, improve your platform,
-              collaborate on a project or want to know more about me, I&apos;m
-              here to talk.
-            </h2>
+            <h1 className="text-3xl font-bold">{t("contact-title")}</h1>
+            <h2 className="text-lg">{t("contact-desc")}</h2>
           </div>
 
           {/* Contact Cards */}
@@ -100,7 +98,7 @@ const ContactPage = () => {
                 <TooltipContent
                   side="top"
                   align="center"
-                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg bder border-gray-200"
                   onClick={() => handleCardClick("khaihungluong@gmail.com")}
                 >
                   <div className="flex items-center gap-2">
@@ -142,7 +140,7 @@ const ContactPage = () => {
         </div>
       </div>
 
-      <div className="m-auto text-xl font-bold">Or</div>
+      <div className="m-auto text-xl font-bold">{t("contact-or")}</div>
       {/* Input fields */}
       <div>
         <form
@@ -151,12 +149,12 @@ const ContactPage = () => {
           onSubmit={handleEmailClick}
         >
           <div className="flex items-center gap-2 text-3xl font-bold">
-            <span className="text-3xl font-bold">Send me a message 💬</span>
+            <span className="text-3xl font-bold">{t("contact-sendmessage")} 💬</span>
           </div>
 
           <div className="flex flex-col gap-y-2">
             <label htmlFor="name" className="text-lg">
-              Name
+              {t("contact-name")}
             </label>
             <input
               type="text"
@@ -170,7 +168,7 @@ const ContactPage = () => {
 
           <div className="flex flex-col gap-y-2">
             <label htmlFor="email" className="text-lg">
-              Email
+              {t("contact-email")}
             </label>
             <input
               type="email"
@@ -184,7 +182,7 @@ const ContactPage = () => {
 
           <div className="flex flex-col gap-y-2">
             <label htmlFor="email" className="text-lg">
-              Subject
+              {t("contact-subject")}
             </label>
             <input
               type="text"
@@ -197,7 +195,7 @@ const ContactPage = () => {
 
           <div className="flex flex-col gap-y-2">
             <label htmlFor="message" className="text-lg">
-              Message
+              {t("contact-message")}
             </label>
             <textarea
               name="message"
@@ -212,7 +210,7 @@ const ContactPage = () => {
             type="submit"
             className="w-full rounded-lg p-2 bg-black text-white hover:bg-slate-700 transition-all"
           >
-            Send Message
+           {t("contact-send")}
           </button>
         </form>
       </div>
