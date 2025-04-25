@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 const ContactPage = () => {
   // Copy email address to clipboard
   const now = new Date();
-  const {t} = useTranslation('')
+  const { t } = useTranslation("");
 
   // Format date part: "Sunday, December 03, 2023"
   const datePart = new Intl.DateTimeFormat("en-US", {
@@ -52,7 +52,7 @@ const ContactPage = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   // Send email function
-  const handleEmailClick = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formRef.current) return;
@@ -65,11 +65,37 @@ const ContactPage = () => {
     const message = (form.elements.namedItem("message") as HTMLTextAreaElement)
       ?.value;
 
-    sendEmail({ name, email, subject, message });
+    const error = await sendEmail({ name, email, subject, message });
+
+    if (!error) {
+      toast("Email sent successfully", {
+        description: (
+          <span style={{ color: "var(--muted-foreground)" }}>
+            {finalFormatted}
+          </span>
+        ),
+        // action: {
+        //   label: "Undo",
+        //   onClick: () => console.log("Undo"),
+        // },
+      });
+    } else {
+      toast("Email sent failed", {
+        description: (
+          <span style={{ color: "red" }}>
+            Failed to send email. Please use my email or phone number.
+          </span>
+        ),
+        // action: {
+        //   label: "Undo",
+        //   onClick: () => console.log("Undo"),
+        // },
+      });
+    }
   };
 
   return (
-    <div className="w-full bg-gradient-to-b from-white via-blue-50 to-red-50 flex items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5 dark:from-[#212121] dark:via-[#171d2d] dark:to-[#040211] dark:text-white">
+    <div className="w-full bg-gradient-to-b p-2 pt-10 md:pt-0 from-white via-blue-50 to-red-50 flex flex-col items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5 dark:from-[#212121] dark:via-[#171d2d] dark:to-[#040211] dark:text-white">
       <div>
         {/* Header */}
         <div className="flex flex-col gap-y-5">
@@ -149,7 +175,9 @@ const ContactPage = () => {
           onSubmit={handleEmailClick}
         >
           <div className="flex items-center gap-2 text-3xl font-bold">
-            <span className="text-3xl font-bold">{t("contact-sendmessage")} 💬</span>
+            <span className="text-3xl font-bold">
+              {t("contact-sendmessage")} 💬
+            </span>
           </div>
 
           <div className="flex flex-col gap-y-2">
@@ -210,7 +238,7 @@ const ContactPage = () => {
             type="submit"
             className="w-full rounded-lg p-2 bg-black text-white hover:bg-slate-700 transition-all"
           >
-           {t("contact-send")}
+            {t("contact-send")}
           </button>
         </form>
       </div>

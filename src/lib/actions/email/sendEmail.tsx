@@ -36,5 +36,5 @@ export async function sendEmail({ name, email, message, subject }: SendEmailTemp
     react: <EmailTemplate name={name} email={email} message={message} />,
   })
 
-  console.log(error)
+  return error
 }

@@ -15,6 +15,7 @@ const Works = ({ is3D = false }: WorksProps) => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const { t } = useTranslation("");
+  const [isHovered, setIsHovered] = useState(false);
 
   const myProjects = [
     {
@@ -255,6 +256,19 @@ const Works = ({ is3D = false }: WorksProps) => {
     );
   };
 
+  // Auto scroll:
+  useEffect(() => {
+    if (isHovered) return;
+
+    const interval = setInterval(() => {
+      setCarouselIndex(
+        (prevIndex) => (prevIndex + 1) % currentProject.images.length
+      );
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [currentProject, isHovered]);
+
   return (
     <section
       className={`${is3D ? "pl-5 pr-10" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full dark:from-[#212121] dark:via-[#171d2d] dark:to-[#040211] dark:text-white`}
@@ -357,7 +371,9 @@ const Works = ({ is3D = false }: WorksProps) => {
 
         {/* Image Carousel */}
         <div
-          className={`${is3D ? "h-96" : "h-96 md:h-full"} relative bg-neutral-200 dark:bg-[#0e0e0e] rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200`}
+          className={`${is3D ? "h-96" : "h-96 md:h-full"} relative bg-black dark:bg-[#0e0e0e] rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <Image
             src={currentProject.images[carouselIndex]}
