@@ -147,6 +147,7 @@ const Navbar = ({ is3D = false, locale }: NavbarProps) => {
         <button
           className="w-10 h-8 flex flex-col justify-between z-60 relative"
           onClick={() => setOpen((prev) => !prev)}
+          aria-label="Menu"
         >
           <motion.div
             variants={topVariants}

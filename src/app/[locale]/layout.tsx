@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "A mix between a designer and a developer, I am a creative and tech-savvy individual with a passion for innovation and problem-solving. With a background in 2D/3D graphic design and full-stack development, I am well-versed in creating visually stunning and functional websites.",
     images: [
       {
-        url: "https://khaihungluong.com/assets/og-image.png",
+        url: "https://drive.google.com/thumbnail?id=1X7d1TV0N68MAEhTxzgjnEMyFlEg5MrO3&sz=w1000",
         width: 1200,
         height: 630,
         alt: "Khai Hung Luong - Portfolio",

@@ -380,6 +380,7 @@ const Works = ({ is3D = false }: WorksProps) => {
             alt="carousel"
             fill
             className="object-contain rounded-lg"
+            priority
           />
 
           <button
