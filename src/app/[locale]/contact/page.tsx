@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useRef } from "react";
-import { Mail, Copy, Phone } from "lucide-react";
+import { Mail, Copy, Phone, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { sendEmail } from "@/lib/actions/email/sendEmail";
 import { useTranslation } from "react-i18next";
@@ -124,7 +124,7 @@ const ContactPage = () => {
                 <TooltipContent
                   side="top"
                   align="center"
-                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg bder border-gray-200"
+                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
                   onClick={() => handleCardClick("khaihungluong@gmail.com")}
                 >
                   <div className="flex items-center gap-2">
@@ -162,6 +162,35 @@ const ContactPage = () => {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+
+            <TooltipProvider delayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href="/resume/myResume.pdf" // <-- the PDF file path
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
+                  >
+                    {/* You can use any icon, e.g., Download icon */}
+                    <FileText className="h-5 w-5 text-[#4e74fd]" />
+                    <span className="font-semibold text-[#4e74fd]">
+                      View Resume
+                    </span>
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="top"
+                  align="center"
+                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+                >
+                  <div className="flex items-center gap-2">
+                    <span>Open</span>
+                    <Copy className="w-4 h-4" />
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>
@@ -190,7 +219,7 @@ const ContactPage = () => {
               id="name"
               required
               className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] transition-all duration-200 placeholder-gray-400"
-              placeholder="Full Name*"
+              placeholder={`${t("contact-nameholder")}*`}
             />
           </div>
 
@@ -204,7 +233,7 @@ const ContactPage = () => {
               id="email"
               required
               className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] transition-all duration-200 placeholder-gray-400"
-              placeholder="Email*"
+              placeholder={`${t("contact-emailholder")}*`}
             />
           </div>
 
@@ -217,7 +246,7 @@ const ContactPage = () => {
               name="subject"
               id="subject"
               className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] transition-all duration-200 placeholder-gray-400"
-              placeholder="Subject"
+              placeholder={`${t("contact-subjectholder")}*`}
             />
           </div>
 
@@ -230,7 +259,7 @@ const ContactPage = () => {
               id="message"
               required
               className="w-full rounded-md px-4 py-2 bg-gray-100 outline-none border border-transparent focus:border-[#4e74fd] focus:ring-2 focus:ring-[#4e74fd] min-h-28 transition-all duration-200 placeholder-gray-400"
-              placeholder="Share your thoughts or messages"
+              placeholder={`${t("contact-messageholder")}*`}
             />
           </div>
 

@@ -24,7 +24,10 @@ export const metadata: Metadata = {
   title: "Khai Hung Luong - Portfolio",
   description:
     "A mix between a designer and a developer, I am a creative and tech-savvy individual with a passion for innovation and problem-solving. With a background in 2D/3D graphic design and full-stack development, I am well-versed in creating visually stunning and functional websites.",
-  openGraph: {
+    icons: {
+      icon: "/favicon.png",
+    },
+    openGraph: {
     type: "website",
     url: "https://khaihung.dev",
     title: "Khai Hung Luong - Portfolio",
