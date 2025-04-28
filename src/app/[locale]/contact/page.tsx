@@ -167,7 +167,7 @@ const ContactPage = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a
-                    href="/resume/KhaiHungResume.pdf"
+                    href="/resume/KhaiHung-Resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
