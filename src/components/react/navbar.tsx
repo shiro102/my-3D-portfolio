@@ -101,7 +101,7 @@ const Navbar = ({ is3D = false, locale }: NavbarProps) => {
       <div
         className={`${is3D ? "flex gap-4 w-1/3 items-center justify-center" : "hidden md:flex gap-4 w-1/6 md:items-center md:justify-center"}`}
       >
-        <Link href="/">
+        <Link href="https://github.com/shiro102" target="_blank">
           <Image
             src="/github.png"
             alt="GitHub"
@@ -110,13 +110,13 @@ const Navbar = ({ is3D = false, locale }: NavbarProps) => {
             className="invert-0 dark:invert"
           />
         </Link>
-        <Link href="/">
+        <Link href="https://www.linkedin.com/in/hung-luong/" target="_blank">
           <Image src="/linkedin.png" alt="LinkedIn" width={24} height={24} />
         </Link>
-        <Link href="/">
+        <Link href="https://www.instagram.com/khai_h_10/" target="_blank">
           <Image src="/instagram.png" alt="Instagram" width={24} height={24} />
         </Link>
-        <Link href="/">
+        <Link href="https://www.facebook.com/hung.luongkhai/" target="_blank">
           <Image src="/facebook.png" alt="Facebook" width={24} height={24} />
         </Link>
       </div>

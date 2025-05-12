@@ -10,6 +10,10 @@ import { useTranslation } from "react-i18next";
 const HeroIntro2D = ({ locale }: { locale: string }) => {
   const { t } = useTranslation("");
 
+  const buttonBaseStyles = "p-4 rounded-lg ring-1";
+  const primaryButtonStyles = `${buttonBaseStyles} ring-black bg-black text-white dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-slate-300`;
+  const secondaryButtonStyles = `${buttonBaseStyles} ring-black dark:ring-white hover:bg-slate-300 dark:hover:bg-slate-700`;
+
   return (
     <motion.div
       className="h-screen bg-gradient-to-b from-white to-blue-100 dark:from-[#212121] dark:to-[#171d2d] dark:text-white"
@@ -46,12 +50,12 @@ const HeroIntro2D = ({ locale }: { locale: string }) => {
           {/* BUTTONS */}
           <div className="w-full flex gap-4">
             <Link href="#work">
-              <button className="p-4 rounded-lg ring-1 ring-black bg-black text-white dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-slate-300">
+              <button className={primaryButtonStyles}>
                 {t("hero2D-viewwork")}
               </button>
             </Link>
             <Link href="/about">
-              <button className="p-4 rounded-lg ring-1 ring-black dark:ring-white hover:bg-slate-300 dark:hover:bg-slate-700">
+              <button className={secondaryButtonStyles}>
                 {t("hero2D-aboutme")}
               </button>
             </Link>

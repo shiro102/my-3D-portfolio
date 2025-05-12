@@ -1,4 +1,27 @@
-export const myProjects = [
+export interface Project {
+  title: string;
+  desc: string;
+  subdesc: string;
+  href: string;
+  logo: string;
+  logoStyle: {
+    backgroundColor: string;
+    border: string;
+    boxShadow: string;
+    background?: string;
+  };
+  spotlight: string;
+  tags: {
+    id: number;
+    name: string;
+    path: string;
+    url: string;
+  }[];
+  images: string[];
+  imageDescriptions?: string[];
+}
+
+export const myProjects: Project[] = [
   {
     title: "project1-title",
     desc: "project1-desc",
@@ -51,10 +74,15 @@ export const myProjects = [
     ],
     images: [
       "https://drive.google.com/thumbnail?id=1FnuM2P5A4iVxwZ9DMOI-DQoXdP44OZ_9&sz=w3000",
-      "https://drive.google.com/thumbnail?id=1-bCTpz-cDtDDofBBgUvPhRaUIcnroxJt&sz=w2000",
-      "https://drive.google.com/thumbnail?id=1joLQ1KQJXUX5Ku2af_QH7hzGOvGzdUut&sz=w1000",
       "https://drive.google.com/thumbnail?id=1_Hta1UcGoU0-4NuY98bgxUUtZaZIA14u&sz=w1000",
-      "https://drive.google.com/thumbnail?id=16XAcVNqxotko0u5vP3TlRiA5WvreKrej&sz=w2000",
+      "https://drive.google.com/thumbnail?id=1zkXmIpmQMhIVmJ5gJ3zx0Altj2zVJKfx&sz=w2000",
+      "https://drive.google.com/thumbnail?id=1bnAuesMb0sKMktS4txoTsZSHQfGVIWvF&sz=w2000",
+    ],
+    imageDescriptions: [
+      "project1-imageDescription1",
+      "project1-imageDescription2",
+      "project1-imageDescription3",
+      "project1-imageDescription4",
     ],
   },
   {
@@ -102,16 +130,22 @@ export const myProjects = [
       },
     ],
     images: [
-      "https://drive.google.com/thumbnail?id=1nzNRwx31d0DBkIU00Mx_32j3zHB7sg7w&sz=w2000",
+      "https://drive.google.com/thumbnail?id=12KOo5Z1he9zahibu_kdjA7SigU7I6D4D&sz=w2000",
       "https://drive.google.com/thumbnail?id=1bb6FjHgkaq-kPFqRhA0zHxs7mERsqeYb&sz=w2000",
       "https://drive.google.com/thumbnail?id=1ZFwVuZPkz3jbzfUhLxqt_D1JcU-ipN4V&sz=w2000",
+      "https://drive.google.com/thumbnail?id=1nzNRwx31d0DBkIU00Mx_32j3zHB7sg7w&sz=w2000",
+    ],
+    imageDescriptions: [
+      "project2-imageDescription1",
+      "project2-imageDescription2",
+      "project2-imageDescription3",
+      "project2-imageDescription4",
     ],
   },
   {
     title: "project3-title",
     desc: "project3-desc",
-    subdesc:
-      "project3-subdesc",
+    subdesc: "project3-subdesc",
     href: "https://yoga-pose-classification-e8kg76w54mzxlgzkb8z3jb.streamlit.app/",
     logo: "/assets/project-logo3.png",
     logoStyle: {
@@ -154,12 +188,62 @@ export const myProjects = [
       "https://drive.google.com/thumbnail?id=1vPAuyoPigeFyiL_nCUPbiQNG0rRohrWi&sz=w2000",
       "https://drive.google.com/thumbnail?id=1ai5KRHdA3JRiHjryYSQ9EdLXrc96TXaC&sz=w2000",
     ],
+    imageDescriptions: [
+      "project3-imageDescription1",
+      "project3-imageDescription2",
+      "project3-imageDescription3",
+      "project3-imageDescription4",
+    ],
+  },
+  {
+    title: "project5-title",
+    desc: "project5-desc",
+    subdesc: "project5-subdesc",
+    href: "https://github.com/shiro102/automated-summary-bot",
+    logo: "/assets/project-automatedChatbot.png",
+    logoStyle: {
+      backgroundColor: "#13202F",
+      border: "0.2px solid #17293E",
+      boxShadow: "0px 0px 60px 0px #2F6DB54D",
+    },
+    spotlight: "/assets/spotlight2.png",
+    tags: [
+      {
+        id: 1,
+        name: "JavaScript",
+        path: "/assets/javascript.png",
+        url: "https://www.javascript.com/",
+      },
+      {
+        id: 2,
+        name: "Cloudflare Workers",
+        path: "/assets/cloudflare-worker.png",
+        url: "https://workers.cloudflare.com/",
+      },
+      {
+        id: 3,
+        name: "NodeJS",
+        path: "/assets/nodejs.png",
+        url: "https://nodejs.org/",
+      },
+      {
+        id: 4,
+        name: "ChatGPT",
+        path: "/assets/chatgpt.png",
+        url: "https://chatgpt.com/",
+      },
+    ],
+    images: [
+      "https://drive.google.com/thumbnail?id=1NNBKHBXXipsGp0O78dFGE5I52wvi1b3X&sz=w2000",
+    ],
+    imageDescriptions: [
+      "project5-imageDescription1",
+    ],
   },
   {
     title: "project4-title",
     desc: "project4-desc",
-    subdesc:
-      "project4-subdesc",
+    subdesc: "project4-subdesc",
     href: "https://ncra.ca/",
     logo: "/assets/project-ncra.gif",
     logoStyle: {
@@ -197,6 +281,10 @@ export const myProjects = [
     images: [
       "https://drive.google.com/thumbnail?id=1Xd0i1Clc8INyPknOGWUmyqE2hCwVjnnD&sz=w2000",
       "https://drive.google.com/thumbnail?id=1TBpKt8ksUtgvuwpmxRqkXbq3f68S1wFE&sz=w2000",
+    ],
+    imageDescriptions: [
+      "project4-imageDescription1",
+      "project4-imageDescription2",
     ],
   },
 ];
