@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 import MyRoom from "@/components/3D/components/MyRoom";
 // import MyRoomAntique from "@/components/MyRoomAntique";
@@ -28,12 +28,31 @@ const WorkRoom3D = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const { toggleDarkMode } = useDarkMode();
   const { t } = useTranslation("");
+  const [lightHelperLabel, setLightHelperLabel] = useState(t("workroom3D-showLightRays"));
+  const [viewLaptopLabel, setViewLaptopLabel] = useState(t("workroom3D-viewlaptop"));
+  const [toggleDarkModeLabel, setToggleDarkModeLabel] = useState(t("workroom3D-toggleDarkMode"));
+  const [zoomLabel, setZoomLabel] = useState(t("workroom3D-zoom"));
+  const [helpersLabel, setHelpersLabel] = useState(t("workroom3D-helpers"));
+
+  useEffect(() => {
+    setLightHelperLabel(t("workroom3D-showLightRays"));
+    setViewLaptopLabel(t("workroom3D-viewlaptop"));
+    setToggleDarkModeLabel(t("workroom3D-toggleDarkMode"));
+    setZoomLabel(t("workroom3D-zoom"));
+    setHelpersLabel(t("workroom3D-helpers"));
+  }, [t]);
 
   // 🛠️ Panel toggle
   const { zoom } = useControls(
-    "Zoom",
+    zoomLabel,
     {
-      zoom: { value: isMobile? 70: 60, min: 10, max: 100, step: 1, label: "Camera FOV" },
+      zoom: {
+        value: isMobile ? 70 : 60,
+        min: 10,
+        max: 100,
+        step: 1,
+        label: "Camera FOV",
+      },
     },
     {
       collapsed: isMobile,
@@ -41,19 +60,19 @@ const WorkRoom3D = () => {
   );
 
   const { showLightHelpers } = useControls(
-    "Helpers",
+    helpersLabel,
     {
-      "View Laptop": button(() => setAnimateCamera(true)),
-      "Toggle Dark Mode": button(() => toggleDarkMode()),
+      [viewLaptopLabel]: button(() => setAnimateCamera(true)),
+      [toggleDarkModeLabel]: button(() => toggleDarkMode()),
       showLightHelpers: {
         value: false,
-        label: "Show Light Rays",
+        label: lightHelperLabel,
       },
     },
     {
       collapsed: isMobile,
     }
-  );
+  ) as { showLightHelpers: boolean };
 
   useEffect(() => {
     if (cameraRef.current) {
@@ -71,7 +90,7 @@ const WorkRoom3D = () => {
   // }, [screenMesh]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50 pt-5 relative dark:from-[#171d2d] dark:to-[#040211] dark:text-white -mt-1">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-red-50 relative dark:from-[#221c1c] dark:via-[#171d2d] dark:to-[#040211] dark:text-white -mt-1">
       <div className="flex justify-center items-center text-4xl md:text-6xl font-bold font-[--font-tai-heritage-pro]">
         {t("workroom3D-header")}
       </div>
@@ -85,7 +104,7 @@ const WorkRoom3D = () => {
         <Canvas
           shadows
           camera={{
-            position: [3.5 * scaleLevel, 3.8 * scaleLevel, 2.9 * scaleLevel],
+            position: [3.5 * scaleLevel, 2.9 * scaleLevel, 3.0 * scaleLevel],
             fov: zoom,
           }}
           onCreated={({ gl, camera }) => {

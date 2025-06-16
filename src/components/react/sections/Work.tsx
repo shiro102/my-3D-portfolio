@@ -61,7 +61,7 @@ const Works = ({ is3D = false }: WorksProps) => {
     return () => clearInterval(interval);
   }, [currentProject, isHovered]);
 
-  const sectionClasses = `${is3D ? "pl-5 pr-10" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full dark:from-[#212121] dark:via-[#171d2d] dark:to-[#040211] dark:text-white`;
+  const sectionClasses = `${is3D ? "pl-5 pr-10" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full dark:from-[#221c1c] dark:via-[#171d2d] dark:to-[#040211] dark:text-white`;
   const headerClasses = `${is3D ? "text-4xl" : "text-3xl sm:text-4xl"} font-semibold bg-gradient-to-r from-[#353639] via-[#47474c] to-[#47474c] bg-clip-text text-transparent dark:from-[#d2d3d4] dark:via-[#f0f0f0] dark:to-[#c8c8c8] font-[--font-tai-heritage-pro]`;
   const gridClasses = `${is3D ? "grid grid-cols-1" : "grid grid-cols-1 lg:grid-cols-2"} mt-12 gap-5 w-full`;
   const descClasses = `${is3D ? "py-10 px-5" : "py-10 px-5 sm:p-10"} flex flex-col gap-5 relative shadow-2xl shadow-black-200 bg-white dark:bg-[#111112] min-h-[calc(80vh-40px)] justify-between`;

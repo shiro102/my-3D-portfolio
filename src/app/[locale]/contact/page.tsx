@@ -95,111 +95,110 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="w-full bg-gradient-to-b p-2 pt-10 md:pt-0 from-white via-blue-50 to-red-50 flex flex-col items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5 dark:from-[#212121] dark:via-[#171d2d] dark:to-[#040211] dark:text-white">
-      <div>
-        {/* Header */}
-        <div className="flex flex-col gap-y-5">
-          {/* Title */}
-          <div className="flex flex-col gap-y-2">
-            <h1 className="text-3xl font-bold">{t("contact-title")}</h1>
-            <h2 className="text-lg">{t("contact-desc")}</h2>
-          </div>
+    <div className="w-full h-screen bg-gradient-to-b p-2 pt-10 md:pt-2 from-white via-blue-50 to-red-50 flex flex-col items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5 dark:from-[#221c1c] dark:via-[#171d2d] dark:to-[#040211] dark:text-white">
+      {/* Header */}
+      <div className="flex flex-col gap-y-5">
+        {/* Title */}
+        <div className="flex flex-col gap-y-2">
+          <h1 className="text-3xl font-bold">{t("contact-title")}</h1>
+          <h2 className="text-lg">{t("contact-desc")}</h2>
+        </div>
 
-          {/* Contact Cards */}
-          <div className="gap-y-5 flex flex-col">
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={() => handleCardClick("khaihungluong@gmail.com")}
-                    className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
-                  >
-                    <Mail className="h-5 w-5 text-[#4e74fd]" />
-                    <span className="font-semibold text-[#4e74fd]">
-                      khaihungluong@gmail.com
-                    </span>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="top"
-                  align="center"
-                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+        {/* Contact Cards */}
+        <div className="gap-y-5 flex flex-col">
+          <TooltipProvider delayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
                   onClick={() => handleCardClick("khaihungluong@gmail.com")}
+                  className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
                 >
-                  <div className="flex items-center gap-2">
-                    <span>Copy</span>
-                    <Copy className="w-4 h-4" />
-                  </div>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+                  <Mail className="h-5 w-5 text-[#4e74fd]" />
+                  <span className="font-semibold text-[#4e74fd]">
+                    khaihungluong@gmail.com
+                  </span>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="top"
+                align="center"
+                className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+                onClick={() => handleCardClick("khaihungluong@gmail.com")}
+              >
+                <div className="flex items-center gap-2">
+                  <span>Copy</span>
+                  <Copy className="w-4 h-4" />
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={() => handleCardClick("778-583-7088")}
-                    className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
-                  >
-                    <Phone className="h-5 w-5 text-[#4e74fd]" />
-                    <span className="font-semibold text-[#4e74fd]">
-                      778-583-7088
-                    </span>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="top"
-                  align="center"
-                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+          <TooltipProvider delayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
                   onClick={() => handleCardClick("778-583-7088")}
+                  className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
                 >
-                  <div className="flex items-center gap-2">
-                    <span>Copy</span>
-                    <Copy className="w-4 h-4" />
-                  </div>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+                  <Phone className="h-5 w-5 text-[#4e74fd]" />
+                  <span className="font-semibold text-[#4e74fd]">
+                    778-583-7088
+                  </span>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="top"
+                align="center"
+                className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+                onClick={() => handleCardClick("778-583-7088")}
+              >
+                <div className="flex items-center gap-2">
+                  <span>Copy</span>
+                  <Copy className="w-4 h-4" />
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a
-                    href="/resume/KhaiHung-Resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
-                  >
-                    {/* You can use any icon, e.g., Download icon */}
-                    <FileText className="h-5 w-5 text-[#4e74fd]" />
-                    <span className="font-semibold text-[#4e74fd]">
-                      View Resume
-                    </span>
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="top"
-                  align="center"
-                  className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+          <TooltipProvider delayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="/resume/KhaiHung-Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-fit flex items-center gap-2 bg-white shadow-md border border-gray-200 px-4 py-2 rounded-full transition hover:shadow-lg"
                 >
-                  <div className="flex items-center gap-2">
-                    <span>Open</span>
-                    <Copy className="w-4 h-4" />
-                  </div>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+                  {/* You can use any icon, e.g., Download icon */}
+                  <FileText className="h-5 w-5 text-[#4e74fd]" />
+                  <span className="font-semibold text-[#4e74fd]">
+                    View Resume
+                  </span>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent
+                side="top"
+                align="center"
+                className="bg-white text-sm text-gray-700 px-3 py-2 rounded-lg shadow-lg border border-gray-200"
+              >
+                <div className="flex items-center gap-2">
+                  <span>Open</span>
+                  <Copy className="w-4 h-4" />
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
 
       <div className="m-auto text-xl font-bold">{t("contact-or")}</div>
+
       {/* Input fields */}
-      <div>
+      <div className=" flex justify-center items-center">
         <form
-          className="flex flex-col justify-center gap-y-6 my-5 mx-7 bg-white rounded-xl p-10 shadow-2xl shadow-black-200 pb-16 border border-gray-200 text-black"
+          className="flex flex-col justify-center gap-y-6 my-5 mx-7 bg-white rounded-xl p-8 shadow-2xl shadow-black-200 pb-12 border border-gray-200 text-black"
           ref={formRef}
           onSubmit={handleEmailClick}
         >

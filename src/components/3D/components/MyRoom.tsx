@@ -21,6 +21,9 @@ import Navbar from "@/components/react/navbar";
 import { DarkModeContext } from "@/components/react/context/DarkModeContext";
 import { useTranslation } from "react-i18next";
 import { Poppins } from "next/font/google";
+import Image from "next/image";
+import { useState } from "react";
+
 export interface MyRoomHandle {
   screen: THREE.Object3D | null;
 }
@@ -40,6 +43,13 @@ const MyRoom = forwardRef<
     },
     ref
   ) => {
+    const [hoveredImageCat, setHoveredImageCat] = useState(false);
+    const [hoveredImageCouple, setHoveredImageCouple] = useState(false);
+    const [hoveredImageCertificate1, setHoveredImageCertificate1] =
+      useState(false);
+    const [hoveredImageCertificate2, setHoveredImageCertificate2] =
+      useState(false);
+
     const group = useRef<THREE.Group>(null);
     const screenRef = useRef<THREE.Mesh>(null);
     const scaleLevel = 1 / 0.085;
@@ -93,6 +103,22 @@ const MyRoom = forwardRef<
         group.current?.add(boxHelper);
       }
     }, []);
+
+    // Add mesh dimension measurement for picture frame
+    // useEffect(() => {
+    //   const mesh = nodes?.Cube037_0; // The current mesh for the picture frame
+    //   if (mesh) {
+    //     const box = new THREE.Box3().setFromObject(mesh);
+    //     const size = new THREE.Vector3();
+    //     box.getSize(size);
+    //     console.log("Current picture frame dimensions:", {
+    //       width: size.x,
+    //       height: size.y,
+    //       depth: size.z,
+    //       scale: mesh.scale,
+    //     });
+    //   }
+    // }, [nodes]);
 
     // call animation and add delay
     useEffect(() => {
@@ -533,7 +559,9 @@ const MyRoom = forwardRef<
                               className={`text-white shadow rounded text-5xl cursor-pointer h-full w-full font-bold ${poppins.className}`}
                               onClick={() => setCamera(true)}
                             >
-                              <p className="pb-3">{t("workroom3D-viewlaptop")}</p>
+                              <p className="pb-3">
+                                {t("workroom3D-viewlaptop")}
+                              </p>
                               <p>&gt;_</p>
                             </button>
                           </div>
@@ -1103,8 +1131,9 @@ const MyRoom = forwardRef<
                     material={materials["shelves.011"]}
                   />
                 </group>
+
                 <group
-                  name="WallPictureBlack"
+                  name="WallPictureBrown"
                   position={[1.006, 0.986, 1.178]}
                   rotation={[0, 0, -Math.PI / 2]}
                   scale={[0.013, 0.399, 0.407]}
@@ -1122,10 +1151,111 @@ const MyRoom = forwardRef<
                     receiveShadow
                     geometry={nodes.Cube037_1.geometry}
                     material={materials["lamp.012"]}
-                  />
+                  >
+                    <Html
+                      className="w-[36px] h-[72px] p-0 bg-[#f0f0f0]"
+                      rotation-x={Math.PI / 2}
+                      rotation-y={Math.PI / 2}
+                      position={[0, -0.44, 0]}
+                      transform
+                      occlude="blending"
+                    >
+                      <Image
+                        src="https://drive.google.com/thumbnail?id=1yswG19mtOcoOK64LUNjmuGR0kC0TplRr&sz=w1000"
+                        alt="My Certificate 1"
+                        width={36}
+                        height={35}
+                        className="w-full h-[35px] object-cover cursor-pointer"
+                        onMouseEnter={() => setHoveredImageCertificate1(true)}
+                        onMouseLeave={() => setHoveredImageCertificate1(false)}
+                        onClick={() => {
+                          window.open(
+                            "https://cp.certmetrics.com/amazon/en/public/verify/credential/985b89975d2a4a3b9a108019a9b6e5e5",
+                            "_blank"
+                          );
+                        }}
+                      />
+                      <div className="w-full h-[1px] bg-[#f0f0f0]"></div>
+                      <Image
+                        src="https://drive.google.com/thumbnail?id=1vT6UVJWBU43cpG22AI4Mgqs1HRlXCsRJ&sz=w1000"
+                        alt="My Certificate 2"
+                        width={36}
+                        height={35}
+                        className="w-full h-[35px] object-cover cursor-pointer"
+                        onMouseEnter={() => setHoveredImageCertificate2(true)}
+                        onMouseLeave={() => setHoveredImageCertificate2(false)}
+                        onClick={() => {
+                          window.open(
+                            "https://cp.certmetrics.com/amazon/en/public/verify/credential/4E548B22TM4QQGC0",
+                            "_blank"
+                          );
+                        }}
+                      />
+                    </Html>
+                  </mesh>
                 </group>
+
                 <group
-                  name="WallPictureBrown"
+                  position={[1.006, 0.986, 1.178]}
+                  rotation={[0, 0, -Math.PI / 2]}
+                  scale={[0.011, 0.086, 0.125]}
+                >
+                  {hoveredImageCertificate1 && (
+                    <Html
+                      rotation-x={Math.PI / 2}
+                      rotation-y={Math.PI / 2}
+                      position={[2, 4, 0]}
+                      transform
+                      occlude="blending"
+                      className="pointer-events-none"
+                    >
+                      <div className="w-[200px] rounded shadow-lg overflow-hidden bg-white text-sm transition-opacity duration-300">
+                        <Image
+                          src="https://drive.google.com/thumbnail?id=1yswG19mtOcoOK64LUNjmuGR0kC0TplRr&sz=w1000"
+                          alt="Zoomed My Certificate 1"
+                          width={200}
+                          height={150}
+                          className="w-full h-auto"
+                        />
+                        <div className="p-2 text-gray-800">
+                          <p className="font-semibold">
+                            Cloud Practitioner Certificate
+                          </p>
+                          <p>{t("myCertificateDescription")}</p>
+                        </div>
+                      </div>
+                    </Html>
+                  )}
+                  {hoveredImageCertificate2 && (
+                    <Html
+                      rotation-x={Math.PI / 2}
+                      rotation-y={Math.PI / 2}
+                      position={[2, 4, 0]}
+                      transform
+                      occlude="blending"
+                      className="pointer-events-none"
+                    >
+                      <div className="w-[200px] rounded shadow-lg overflow-hidden bg-white text-sm transition-opacity duration-300">
+                        <Image
+                          src="https://drive.google.com/thumbnail?id=1vT6UVJWBU43cpG22AI4Mgqs1HRlXCsRJ&sz=w1000"
+                          alt="Zoomed My Certificate 2"
+                          width={200}
+                          height={150}
+                          className="w-full h-auto"
+                        />
+                        <div className="p-2 text-gray-800">
+                          <p className="font-semibold">
+                            Solution Architect Certificate
+                          </p>
+                          <p>{t("myCertificateDescription")}</p>
+                        </div>
+                      </div>
+                    </Html>
+                  )}
+                </group>
+
+                <group
+                  name="WallPictureBlack"
                   position={[-0.97, 0.866, 1.423]}
                   scale={[0.011, 0.086, 0.125]}
                 >
@@ -1142,8 +1272,52 @@ const MyRoom = forwardRef<
                     receiveShadow
                     geometry={nodes.Cube035_1.geometry}
                     material={materials["white.005"]}
-                  />
+                  >
+                    <Html
+                      className="w-[62px] h-[70px] bg-[#f0f0f0] p-0"
+                      rotation-x={Math.PI / 2}
+                      rotation-y={Math.PI / 2}
+                      position={[0, 0, 0]}
+                      transform
+                      occlude="blending"
+                    >
+                      <Image
+                        src="https://drive.google.com/thumbnail?id=1w7hT1xl_rgbyf1mDJ7OGQAavx788wwQ5&sz=w1000"
+                        alt="My Couple"
+                        width={62}
+                        height={70}
+                        className="w-full h-full object-cover cursor-pointer"
+                        onMouseEnter={() => setHoveredImageCouple(true)}
+                        onMouseLeave={() => setHoveredImageCouple(false)}
+                      />
+                    </Html>
+                  </mesh>
+                  {hoveredImageCouple && (
+                    <Html
+                      rotation-x={Math.PI / 2}
+                      rotation-y={Math.PI / 2}
+                      position={[2, -6, -1]}
+                      transform
+                      occlude="blending"
+                      className="pointer-events-none"
+                    >
+                      <div className="w-[200px] rounded shadow-lg overflow-hidden bg-white text-sm transition-opacity duration-300">
+                        <Image
+                          src="https://drive.google.com/thumbnail?id=1w7hT1xl_rgbyf1mDJ7OGQAavx788wwQ5&sz=w1000"
+                          alt="Zoomed My Couple"
+                          width={200}
+                          height={150}
+                          className="w-full h-auto"
+                        />
+                        <div className="p-2 text-gray-800">
+                          <p className="font-semibold">{t("myLove")}</p>
+                          <p>{t("myLoveDescription")}</p>
+                        </div>
+                      </div>
+                    </Html>
+                  )}
                 </group>
+
                 <group
                   name="WallPictureRed"
                   position={[-0.97, 0.866, 1.068]}
@@ -1162,8 +1336,54 @@ const MyRoom = forwardRef<
                     receiveShadow
                     geometry={nodes.Cube036_1.geometry}
                     material={materials["WEED.005"]}
-                  />
+                  >
+                    <Html
+                      className="w-[62px] h-[70px] bg-[#f0f0f0] p-0"
+                      rotation-x={-Math.PI / 2}
+                      rotation-y={Math.PI / 2}
+                      position={[0, 0, 0]}
+                      transform
+                      occlude="blending"
+                    >
+                      <Image
+                        src="https://drive.google.com/thumbnail?id=1a25DxaL9PNJk6FFiqT2K0SqQMIjBojif&sz=w1000"
+                        alt="My Cat"
+                        width={62}
+                        height={70}
+                        className="w-full h-full object-cover cursor-pointer"
+                        onMouseEnter={() => setHoveredImageCat(true)}
+                        onMouseLeave={() => setHoveredImageCat(false)}
+                      />
+                    </Html>
+                  </mesh>
+                  {hoveredImageCat && (
+                    <Html
+                      rotation-x={Math.PI / 2}
+                      rotation-y={Math.PI / 2}
+                      position={[2, -6, 2]}
+                      transform
+                      occlude="blending"
+                      className="pointer-events-none"
+                    >
+                      <div className="w-[200px] rounded shadow-lg overflow-hidden bg-white text-sm transition-opacity duration-300">
+                        <Image
+                          src="https://drive.google.com/thumbnail?id=1a25DxaL9PNJk6FFiqT2K0SqQMIjBojif&sz=w1000"
+                          alt="Zoomed My Cat"
+                          width={200}
+                          height={150}
+                          className="w-full h-auto"
+                        />
+                        <div className="p-2 text-gray-800">
+                          <p className="font-semibold">{t("myCat")}</p>
+                          <p>
+                            {t("myCatDescription")}
+                          </p>
+                        </div>
+                      </div>
+                    </Html>
+                  )}
                 </group>
+
                 <group
                   name="WindowBelow"
                   position={[-0.978, 0.273, 0.296]}
