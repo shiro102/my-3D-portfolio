@@ -20,12 +20,11 @@ const HeroIntro2D = ({ locale }: { locale: string }) => {
     //   animate={{ opacity: 1 }}
     //   transition={{ duration: 1 }}
     // >
-    <div className="h-[100px]">
+    <div className="h-[100px] bg-blue-100 dark:bg-[#221c1c]">
       {/* Sticky Navbar */}
       <div className="h-[70px] sticky top-0 left-0 right-0 z-40">
         <Navbar locale={locale} />
       </div>
-      <div className="h-[1px] bg-white z-[999] dark:bg-black" />
 
       {/* Main Content */}
 
