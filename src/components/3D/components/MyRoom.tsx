@@ -49,6 +49,7 @@ const MyRoom = forwardRef<
       useState(false);
     const [hoveredImageCertificate2, setHoveredImageCertificate2] =
       useState(false);
+    const [hasScrolled, setHasScrolled] = useState(false);
 
     const group = useRef<THREE.Group>(null);
     const screenRef = useRef<THREE.Mesh>(null);
@@ -169,6 +170,20 @@ const MyRoom = forwardRef<
         buttonToScreenRef.current.lookAt(camera.position);
       }
     });
+
+    const overlayScrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (setCamera) {
+        const timer = setTimeout(() => {
+          overlayScrollRef.current?.scrollTo({
+            top: 50, // or your desired scroll position
+            behavior: "smooth",
+          });
+        }, 4050);
+        return () => clearTimeout(timer);
+      }
+    }, [setCamera]);
 
     return (
       // increase everything by 1/0.085 to fix the scale error of laptop screen
@@ -874,23 +889,18 @@ const MyRoom = forwardRef<
                               className="w-[668px] h-[432px] scale-[0.5] origin-top-left relative"
                               onPointerDown={(e) => e.stopPropagation()}
                             >
-                              <div className="h-full overflow-y-auto relative">
+                              <div
+                                className="h-full overflow-y-auto relative"
+                                onScroll={() => setHasScrolled(true)}
+                                ref={overlayScrollRef}
+                              >
                                 <div className="sticky top-0 z-50 h-[70px]">
                                   <Navbar is3D={true} />
                                 </div>
-                                <Works is3D={true} />
+                                <Works is3D={true} hasScrolled={hasScrolled} />
                               </div>
                             </div>
                           </DarkModeContextBridge>
-                          {/* 
-                          <div className="w-[334px] h-[216px] bg-[#f0f0f0] rounded overflow-hidden">
-                            <div className="h-full overflow-y-auto relative">
-                              <div className="sticky top-0 z-50">
-                                <Navbar />
-                              </div>
-                              <Works is3D={true} />
-                            </div>
-                          </div> */}
                         </Html>
                       </mesh>
                     </group>

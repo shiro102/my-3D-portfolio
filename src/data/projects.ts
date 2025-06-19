@@ -1,5 +1,6 @@
 export interface Project {
   title: string;
+  shortTitle: string;
   desc: string;
   subdesc: string;
   href: string;
@@ -10,6 +11,7 @@ export interface Project {
     boxShadow: string;
     background?: string;
   };
+  projectType: "Web/Fullstack Development" | "Backend Development" | "Machine Learning";
   spotlight: string;
   tags: {
     id: number;
@@ -24,10 +26,12 @@ export interface Project {
 export const myProjects: Project[] = [
   {
     title: "project1-title",
+    shortTitle: "Viet Vibe Web",
     desc: "project1-desc",
     subdesc: "project1-subdesc",
     href: "https://www.vietvibe.org",
     logo: "/assets/project-VVF.png",
+    projectType: "Web/Fullstack Development",
     logoStyle: {
       backgroundColor: "transparent",
       border: "0.2px solid transparent",
@@ -87,10 +91,12 @@ export const myProjects: Project[] = [
   },
   {
     title: "project2-title",
+    shortTitle: "3D Worlds",
     desc: "project2-desc",
     subdesc: "project2-subdesc",
     href: "https://github.com/shiro102/my-3D-portfolio",
     logo: "/assets/3DW.jpeg",
+    projectType: "Web/Fullstack Development",
     logoStyle: {
       backgroundColor: "#transparent",
       border: "0.2px solid transparent",
@@ -144,10 +150,12 @@ export const myProjects: Project[] = [
   },
   {
     title: "project3-title",
+    shortTitle: "Yoga Pose Classification",
     desc: "project3-desc",
     subdesc: "project3-subdesc",
     href: "https://yoga-pose-classification-e8kg76w54mzxlgzkb8z3jb.streamlit.app/",
     logo: "/assets/project-logo3.png",
+    projectType: "Machine Learning",
     logoStyle: {
       backgroundColor: "#60f5a1",
       background:
@@ -197,10 +205,12 @@ export const myProjects: Project[] = [
   },
   {
     title: "project5-title",
+    shortTitle: "Automated Summary Bot",
     desc: "project5-desc",
     subdesc: "project5-subdesc",
     href: "https://github.com/shiro102/automated-summary-bot",
     logo: "/assets/project-automatedChatbot.png",
+    projectType: "Backend Development",
     logoStyle: {
       backgroundColor: "#13202F",
       border: "0.2px solid #17293E",
@@ -242,10 +252,12 @@ export const myProjects: Project[] = [
   },
   {
     title: "project4-title",
+    shortTitle: "NCRAs",
     desc: "project4-desc",
     subdesc: "project4-subdesc",
     href: "https://ncra.ca/",
     logo: "/assets/project-ncra.gif",
+    projectType: "Web/Fullstack Development",
     logoStyle: {
       backgroundColor: "#13202F",
       border: "0.2px solid #17293E",
