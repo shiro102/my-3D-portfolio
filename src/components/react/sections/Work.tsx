@@ -29,9 +29,9 @@ const colorMappingType = {
     darker: "#00838f",
   },
   "Machine Learning": {
-    light: "#f3e5f5",    // Lilac Mist
-    medium: "#ce93d8",   // Soft Lavender
-    dark: "#ba68c8",     // Muted Orchid
+    light: "#f3e5f5", // Lilac Mist
+    medium: "#ce93d8", // Soft Lavender
+    dark: "#ba68c8", // Muted Orchid
     darker: "#ab47bc",
   },
 };
@@ -51,7 +51,9 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
   // Ref and state for dynamic height
   const descRef = useRef<HTMLDivElement>(null);
   const [descHeight, setDescHeight] = useState<number | undefined>(undefined);
-  const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1024);
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  );
 
   const currentProject = myProjects[selectedProjectIndex];
   // const projectCount = myProjects.length;
@@ -107,8 +109,8 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
   // Track window width for responsive behavior
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Handle project navigation
@@ -277,7 +279,10 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
       <div className="flex gap-3 mb-8 overflow-x-auto p-1">
         {projectsOfSelectedType.map((project, index) => {
           const isActive = selectedProjectIndex === myProjects.indexOf(project);
-          const colorMap = colorMappingType[selectedProjectType as keyof typeof colorMappingType] || colorMappingType["Web/Fullstack Development"];
+          const colorMap =
+            colorMappingType[
+              selectedProjectType as keyof typeof colorMappingType
+            ] || colorMappingType["Web/Fullstack Development"];
           const tabBorder = `2px solid ${isActive ? colorMap.medium : colorMap.light}`;
           return (
             <button
@@ -293,7 +298,7 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
               style={{
                 border: tabBorder,
                 background: isActive ? colorMap.darker : undefined,
-                color: isActive ? '#fff' : undefined,
+                color: isActive ? "#fff" : undefined,
                 boxShadow: isActive
                   ? "0 2px 8px 0 rgba(33, 76, 217, 0.06)"
                   : undefined,
@@ -375,7 +380,9 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
         {/* Image Carousel */}
         <div
           className={carouselClasses}
-          style={{ height: !is3D && windowWidth >= 768 ? descHeight : undefined }}
+          style={{
+            height: !is3D && windowWidth >= 768 ? descHeight : undefined,
+          }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

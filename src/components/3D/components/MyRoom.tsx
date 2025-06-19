@@ -176,11 +176,40 @@ const MyRoom = forwardRef<
     useEffect(() => {
       if (setCamera) {
         const timer = setTimeout(() => {
+          // Option 1: Use smooth behavior (slower than instant)
           overlayScrollRef.current?.scrollTo({
-            top: 50, // or your desired scroll position
+            top: 50,
             behavior: "smooth",
           });
-        }, 4050);
+          
+          // Option 2: Custom smooth scroll for even slower animation
+          // const element = overlayScrollRef.current;
+          // if (element) {
+          //   const startPosition = element.scrollTop;
+          //   const targetPosition = 50;
+          //   const duration = 3000; // 3 seconds
+          //   const startTime = performance.now();
+          //   
+          //   function smoothScroll(currentTime: number) {
+          //     const elapsed = currentTime - startTime;
+          //     const progress = Math.min(elapsed / duration, 1);
+          //     
+          //     // Easing function for smooth animation
+          //     const easeInOutCubic = progress => progress < 0.5 
+          //       ? 4 * progress * progress * progress 
+          //       : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+          //     
+          //     const currentPosition = startPosition + (targetPosition - startPosition) * easeInOutCubic(progress);
+          //     element.scrollTop = currentPosition;
+          //     
+          //     if (progress < 1) {
+          //       requestAnimationFrame(smoothScroll);
+          //     }
+          //   }
+          //   
+          //   requestAnimationFrame(smoothScroll);
+          // }
+        }, 5500);
         return () => clearTimeout(timer);
       }
     }, [setCamera]);
