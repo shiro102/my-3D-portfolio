@@ -1,7 +1,7 @@
 "use client";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -48,6 +48,11 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
   const [initialAnimation, setInitialAnimation] = useState(true);
   const { isDark } = useDarkMode();
 
+  // Ref and state for dynamic height
+  const descRef = useRef<HTMLDivElement>(null);
+  const [descHeight, setDescHeight] = useState<number | undefined>(undefined);
+  const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1024);
+
   const currentProject = myProjects[selectedProjectIndex];
   // const projectCount = myProjects.length;
 
@@ -93,6 +98,19 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (descRef.current) {
+      setDescHeight(descRef.current.offsetHeight);
+    }
+  }, [selectedProjectIndex, selectedProjectType, currentProject, is3D]);
+
+  // Track window width for responsive behavior
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Handle project navigation
   // const handleNavigation = (direction: string) => {
   //   setSelectedProjectIndex((prevIndex) =>
@@ -128,7 +146,7 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
   const sectionClasses = `${is3D ? "pl-5 pr-10" : "px-5 sm:px-10"} bg-gradient-to-b from-white via-blue-100 to-red-50 pt-20 pb-20 w-full dark:from-[#221c1c] dark:via-[#171d2d] dark:to-[#040211] dark:text-white`;
   const headerClasses = `${is3D ? "text-4xl" : "text-3xl sm:text-4xl"} font-semibold bg-gradient-to-r from-[#353639] via-[#47474c] to-[#47474c] bg-clip-text text-transparent dark:from-[#d2d3d4] dark:via-[#f0f0f0] dark:to-[#c8c8c8] font-[--font-tai-heritage-pro]`;
   const gridClasses = `${is3D ? "grid grid-cols-1" : "grid grid-cols-1 lg:grid-cols-2"} mt-12 gap-5 w-full`;
-  const descClasses = `${is3D ? "py-10 px-5" : "py-10 px-5 sm:p-10"} flex flex-col gap-5 relative shadow-2xl shadow-black-200 bg-white dark:bg-[#111112] min-h-[calc(80vh-40px)] justify-between`;
+  const descClasses = `${is3D ? "py-10 px-5" : "py-10 px-5 sm:p-10"} flex flex-col gap-5 relative shadow-2xl shadow-black-200 bg-white dark:bg-[#111112] justify-between md:min-h-[700px]`;
   const titleClasses = `${is3D ? "text-3xl" : "text-2xl"} font-semibold animatedText text-black dark:text-white font-[--font-tai-heritage-pro]`;
   const textClasses = `${is3D ? "text-xl" : ""} animatedText`;
   const carouselClasses = `${is3D ? "h-96" : "h-96 md:h-full"} relative bg-black dark:bg-[#0e0e0e] rounded-lg overflow-hidden flex items-center justify-center shadow-2xl shadow-black-200  max-h-[110vh]`;
@@ -289,7 +307,7 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
 
       <div className={gridClasses}>
         {/* Project Description */}
-        <div className={descClasses} style={{ height: 700 }}>
+        <div className={descClasses} ref={descRef}>
           <div className="absolute top-0 right-0">
             <Image
               src={currentProject.spotlight}
@@ -357,7 +375,7 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
         {/* Image Carousel */}
         <div
           className={carouselClasses}
-          style={{ height: 700 }}
+          style={{ height: !is3D && windowWidth >= 768 ? descHeight : undefined }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
