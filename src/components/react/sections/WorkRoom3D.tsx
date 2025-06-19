@@ -96,7 +96,7 @@ const WorkRoom3D = () => {
         {t("workroom3D-header")}
       </div>
       {/* Leva panel */}
-      <div className="absolute top-23 left-5 z-40">
+      <div className="absolute top-23 left-5 z-30">
         <Leva titleBar={true} fill />
       </div>
 
