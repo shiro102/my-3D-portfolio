@@ -15,6 +15,27 @@ interface WorksProps {
   hasScrolled?: boolean;
 }
 
+const colorMappingType = {
+  "Web/Fullstack Development": {
+    light: "#90caf9",
+    medium: "#42a5f5",
+    dark: "#1976d2",
+    darker: "#1565c0",
+  },
+  "Backend Development": {
+    light: "#80deea", // Light Cyan/Teal
+    medium: "#26c6da", // Cyan/Teal
+    dark: "#00838f", // Dark Cyan/Teal
+    darker: "#00838f",
+  },
+  "Machine Learning": {
+    light: "#f3e5f5",    // Lilac Mist
+    medium: "#ce93d8",   // Soft Lavender
+    dark: "#ba68c8",     // Muted Orchid
+    darker: "#ab47bc",
+  },
+};
+
 const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -126,7 +147,7 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
 
       {/* Project Type Tabs */}
       <div
-        className={`flex flex-col md:flex-row items-center justify-center md:items-stretch md:justify-start gap-y-4 md:gap-y-0 ${is3D ? 'md:gap-x-6' : 'md:gap-x-12'} md:-mt-8 py-8 md:py-16 w-full md:w-[120%] md:-ml-10 md:pl-10 md:-mb-6`}
+        className={`flex flex-col md:flex-row items-center justify-center md:items-stretch md:justify-start gap-y-4 md:gap-y-0 ${is3D ? "md:gap-x-6" : "md:gap-x-12"} md:-mt-8 py-8 md:py-16 w-full md:w-[120%] md:-ml-10 md:pl-10 md:-mb-6`}
       >
         {projectTypes.map((type) => {
           const count = myProjects.filter(
@@ -134,6 +155,16 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
           ).length;
           const isActive =
             selectedProjectType.toLowerCase() === type.toLowerCase();
+          const colorMap =
+            colorMappingType[type as keyof typeof colorMappingType] ||
+            colorMappingType["Web/Fullstack Development"];
+          const tabBgColor = isDark
+            ? isActive
+              ? colorMap.medium
+              : colorMap.dark
+            : isActive
+              ? colorMap.light
+              : colorMap.medium;
           return (
             <button
               key={type}
@@ -154,18 +185,18 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
                 ${isActive || hoveredType === type ? "scale-105 z-10" : ""}
               `}
               style={{
-                background: "none",
+                background: tabBgColor,
                 boxShadow: isDark
                   ? isActive || hoveredType === type
-                    ? "0 0 12px #42a5f5, 0 0 24px #1976d2, 0 0 48px #90caf9"
-                    : "0 0 8px #1976d2, 0 0 16px #42a5f5, 0 0 32px #90caf9"
+                    ? `0 0 12px ${colorMap.light}, 0 0 24px ${colorMap.medium}, 0 0 48px ${colorMap.dark}`
+                    : `0 0 8px ${colorMap.dark}, 0 0 16px ${colorMap.medium}, 0 0 32px ${colorMap.light}`
                   : isActive || hoveredType === type
-                    ? "0 0 6px #42a5f5, 0 0 12px #1976d2, 0 0 18px #90caf9"
-                    : "0 0 2px #1976d2, 0 0 4px #42a5f5, 0 0 8px #90caf9",
+                    ? `0 0 6px ${colorMap.medium}, 0 0 12px ${colorMap.dark}, 0 0 18px ${colorMap.light}`
+                    : `0 0 2px ${colorMap.dark}, 0 0 4px ${colorMap.medium}, 0 0 8px ${colorMap.light}`,
                 border:
                   isActive || hoveredType === type
-                    ? "2px solid #42a5f5"
-                    : "2px solid #221c1c",
+                    ? `2px solid ${colorMap.medium}`
+                    : `2px solid #221c1c`,
                 transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
               }}
             >
@@ -179,23 +210,29 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
                 {is3D ? (
                   hasScrolled ? (
                     <AnimatedButton
-                      animate={initialAnimation || isActive || hoveredType === type}
+                      animate={
+                        initialAnimation || isActive || hoveredType === type
+                      }
                       is3D={is3D}
+                      color={colorMap.dark}
                     />
                   ) : (
                     <span
                       className="block w-full h-full"
                       style={{
-                        background: "#1976d2",
-                        boxShadow: "0 0 24px #42a5f5, 0 0 48px #1976d2, 0 0 96px #90caf9",
+                        background: colorMap.dark,
+                        boxShadow: `0 0 24px ${colorMap.medium}, 0 0 48px ${colorMap.dark}, 0 0 96px ${colorMap.light}`,
                         borderRadius: "inherit",
                       }}
                     />
                   )
                 ) : (
                   <AnimatedButton
-                    animate={initialAnimation || isActive || hoveredType === type}
+                    animate={
+                      initialAnimation || isActive || hoveredType === type
+                    }
                     is3D={is3D}
+                    color={colorMap.dark}
                   />
                 )}
               </span>
@@ -206,10 +243,9 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
                   text-white w-full ${is3D ? "text-xs md:text-xs" : "text-xs md:text-sm"}
                 `}
               >
-                {is3D 
+                {is3D
                   ? type.replace(" Development", "").replace(" Development", "")
-                  : type
-                }
+                  : type}
                 <span className="ml-2 text-xs text-[#90caf9] font-normal">
                   [{count}]
                 </span>
@@ -223,6 +259,8 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
       <div className="flex gap-3 mb-8 overflow-x-auto p-1">
         {projectsOfSelectedType.map((project, index) => {
           const isActive = selectedProjectIndex === myProjects.indexOf(project);
+          const colorMap = colorMappingType[selectedProjectType as keyof typeof colorMappingType] || colorMappingType["Web/Fullstack Development"];
+          const tabBorder = `2px solid ${isActive ? colorMap.medium : colorMap.light}`;
           return (
             <button
               id={`project-${index}`}
@@ -231,13 +269,13 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
                 setSelectedProjectIndex(myProjects.indexOf(project))
               }
               className={`px-5 py-2 rounded-full text-sm font-medium tracking-wide transition-all whitespace-nowrap border focus:outline-none
-                ${
-                  isActive
-                    ? "bg-blue-50 dark:bg-blue-900/40 border-blue-400 text-blue-700 dark:text-blue-200 shadow-sm"
-                    : "bg-white dark:bg-gray-900/40 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-800/60 hover:text-blue-700 dark:hover:text-blue-200"
-                }
+                bg-white dark:bg-gray-900/40 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-800/60 hover:text-blue-700 dark:hover:text-blue-200
+                ${isActive ? "shadow-sm" : ""}
                 hover:scale-[1.04] active:scale-100`}
               style={{
+                border: tabBorder,
+                background: isActive ? colorMap.darker : undefined,
+                color: isActive ? '#fff' : undefined,
                 boxShadow: isActive
                   ? "0 2px 8px 0 rgba(33, 76, 217, 0.06)"
                   : undefined,
@@ -251,7 +289,7 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
 
       <div className={gridClasses}>
         {/* Project Description */}
-        <div className={descClasses}>
+        <div className={descClasses} style={{ height: 700 }}>
           <div className="absolute top-0 right-0">
             <Image
               src={currentProject.spotlight}
@@ -319,6 +357,7 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
         {/* Image Carousel */}
         <div
           className={carouselClasses}
+          style={{ height: 700 }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

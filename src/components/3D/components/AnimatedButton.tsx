@@ -7,8 +7,10 @@ import * as THREE from "three";
 
 function PolygonalWave({
   animate = true,
+  color = "#1976d2",
 }: {
   animate?: boolean;
+  color?: string;
   is3D?: boolean;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -66,7 +68,7 @@ function PolygonalWave({
   return (
     <mesh ref={meshRef}>
       <planeGeometry args={[16, 4, 40, 10]} />
-      <meshStandardMaterial color="#1976d2" flatShading />
+      <meshStandardMaterial color={color} flatShading/>
     </mesh>
   );
 }
@@ -74,9 +76,11 @@ function PolygonalWave({
 export default function AnimatedButtonCanvas({
   animate = true,
   is3D = false,
+  color = "#1976d2",
 }: {
   animate?: boolean;
   is3D?: boolean;
+  color?: string;
 }) {
   return (
     <Canvas
@@ -91,7 +95,7 @@ export default function AnimatedButtonCanvas({
       <ambientLight intensity={0.05} />
       <directionalLight position={[5, 2, 5]} intensity={2.5} />
       <directionalLight position={[-4, 2, 2]} intensity={0.4} color="white" />
-      <PolygonalWave animate={animate} />
+      <PolygonalWave animate={animate} color={color} />
     </Canvas>
   );
 }

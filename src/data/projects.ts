@@ -37,7 +37,7 @@ export const myProjects: Project[] = [
       border: "0.2px solid transparent",
       boxShadow: "0px 0px 10px 0px #AA3C304D",
     },
-    spotlight: "/assets/spotlight1.png",
+    spotlight: "/assets/spotlight2.png",
     tags: [
       {
         id: 1,
@@ -99,10 +99,10 @@ export const myProjects: Project[] = [
     projectType: "Web/Fullstack Development",
     logoStyle: {
       backgroundColor: "#transparent",
-      border: "0.2px solid transparent",
+      border: "0px solid transparent",
       boxShadow: "0px 0px 60px 0px #2F67B64D",
     },
-    spotlight: "/assets/spotlight4.png",
+    spotlight: "/assets/spotlight2.png",
     tags: [
       {
         id: 1,
@@ -137,15 +137,15 @@ export const myProjects: Project[] = [
     ],
     images: [
       "https://drive.google.com/thumbnail?id=12KOo5Z1he9zahibu_kdjA7SigU7I6D4D&sz=w2000",
-      "https://drive.google.com/thumbnail?id=1bb6FjHgkaq-kPFqRhA0zHxs7mERsqeYb&sz=w2000",
-      "https://drive.google.com/thumbnail?id=1ZFwVuZPkz3jbzfUhLxqt_D1JcU-ipN4V&sz=w2000",
       "https://drive.google.com/thumbnail?id=1nzNRwx31d0DBkIU00Mx_32j3zHB7sg7w&sz=w2000",
+      "https://drive.google.com/thumbnail?id=1bmXcPQJA-LhfUeHI1ei6ctSg4Zp__7sL&sz=w2000",
+      "https://drive.google.com/thumbnail?id=1ZFwVuZPkz3jbzfUhLxqt_D1JcU-ipN4V&sz=w2000",
     ],
     imageDescriptions: [
       "project2-imageDescription1",
-      "project2-imageDescription2",
-      "project2-imageDescription3",
       "project2-imageDescription4",
+      "project2-imageDescription5",
+      "project2-imageDescription3",
     ],
   },
   {
@@ -163,7 +163,7 @@ export const myProjects: Project[] = [
       border: "0.2px solid rgba(208, 213, 221, 1)",
       boxShadow: "0px 0px 60px 0px rgba(35, 131, 96, 0.3)",
     },
-    spotlight: "/assets/spotlight3.png",
+    spotlight: "/assets/spotlight5.png",
     tags: [
       {
         id: 1,
@@ -213,10 +213,10 @@ export const myProjects: Project[] = [
     projectType: "Backend Development",
     logoStyle: {
       backgroundColor: "#13202F",
-      border: "0.2px solid #17293E",
+      border: "0px solid #17293E",
       boxShadow: "0px 0px 60px 0px #2F6DB54D",
     },
-    spotlight: "/assets/spotlight2.png",
+    spotlight: "/assets/spotlight3.png",
     tags: [
       {
         id: 1,
@@ -248,6 +248,96 @@ export const myProjects: Project[] = [
     ],
     imageDescriptions: [
       "project5-imageDescription1",
+    ],
+  },
+  {
+    title: "project6-title",
+    shortTitle: "My Duc Dental",
+    desc: "project6-desc",
+    subdesc: "project6-subdesc",
+    href: "https://nhakhoamyduc.vn/",
+    logo: "/assets/myduclogo.jpg",
+    projectType: "Web/Fullstack Development",
+    logoStyle: {
+      backgroundColor: "#13202F",
+      border: "0px solid #17293E",
+      boxShadow: "0px 0px 60px 0px #2F6DB54D",
+    },
+    spotlight: "/assets/spotlight2.png",
+    tags: [
+      {
+        id: 1,
+        name: "React.js",
+        path: "/assets/react.svg",
+        url: "https://reactjs.org/",
+      },
+      {
+        id: 2,
+        name: "AWS Amplify",
+        path: "/assets/aws-amplify.png",
+        url: "https://aws.amazon.com/amplify/",
+      },
+      {
+        id: 3,
+        name: "ExpressJS",
+        path: "https://img.icons8.com/ios/50/express-js.png",
+        url: "https://expressjs.com/",
+      },
+      {
+        id: 4,
+        name: "NodeJS",
+        path: "/assets/nodejs.png",
+        url: "https://nodejs.org/",
+      },
+    ],
+    images: [
+      "https://drive.google.com/thumbnail?id=1bm2cJBRrYRHltcdDpmEsAdAwGqN5wWP7&sz=w2000",
+      "https://drive.google.com/thumbnail?id=1917WZiL6sMhR5d1wXbp6codoGM5AEWVW&sz=w2000",
+    ],
+    imageDescriptions: [
+      "project6-imageDescription1",
+      "project6-imageDescription2",
+    ],
+  },
+  {
+    title: "project7-title",
+    shortTitle: "My Duc Dental Backend",
+    desc: "project7-desc",
+    subdesc: "project7-subdesc",
+    href: "https://github.com/shiro102/my-duc-dental-backend",
+    logo: "/assets/myduclogo.jpg",
+    projectType: "Backend Development",
+    logoStyle: {
+      backgroundColor: "#13202F",
+      border: "0px solid #17293E",
+      boxShadow: "0px 0px 60px 0px #2F6DB54D",
+    },
+    spotlight: "/assets/spotlight3.png",
+    tags: [
+      {
+        id: 1,
+        name: "Render",
+        path: "/assets/render.jpg",
+        url: "https://render.com/",
+      },
+      {
+        id: 2,
+        name: "ExpressJS",
+        path: "https://img.icons8.com/ios/50/express-js.png",
+        url: "https://expressjs.com/",
+      },
+      {
+        id: 3,
+        name: "NodeJS",
+        path: "/assets/nodejs.png",
+        url: "https://nodejs.org/",
+      },
+    ],
+    images: [
+      "https://drive.google.com/thumbnail?id=1917WZiL6sMhR5d1wXbp6codoGM5AEWVW&sz=w2000",
+    ],
+    imageDescriptions: [
+      "project7-imageDescription1",
     ],
   },
   {
