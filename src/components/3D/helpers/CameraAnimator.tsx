@@ -11,9 +11,10 @@ interface CameraAnimatorProps {
   setCamera: React.Dispatch<React.SetStateAction<boolean>>;
   controlsRef: React.RefObject<OrbitControlsProps | null>;
   screenRef: React.RefObject<MyRoomHandle | null>;
+  setFinishedCameraAnimating: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CameraAnimator = ({ trigger, setCamera, controlsRef, screenRef }: CameraAnimatorProps) => {
+const CameraAnimator = ({ trigger, setCamera, controlsRef, screenRef, setFinishedCameraAnimating }: CameraAnimatorProps) => {
   const { camera } = useThree();
   const scaleLevel = 1/0.085
 
@@ -51,6 +52,7 @@ const CameraAnimator = ({ trigger, setCamera, controlsRef, screenRef }: CameraAn
           });
 
           setCamera(false)
+          setFinishedCameraAnimating(true)
           //   const target = { ...controls.target }; // current target
           //   gsap.to(target, {
           //     duration: 1.5,

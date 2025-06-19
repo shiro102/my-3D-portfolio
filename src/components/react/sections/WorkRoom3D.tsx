@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 
 const WorkRoom3D = () => {
   const [animateCamera, setAnimateCamera] = useState(false);
+  const [finishedCameraAnimating, setFinishedCameraAnimating] = useState(false);
   const controlsRef = useRef<OrbitControlsProps>(null);
   const screenRef = useRef<MyRoomHandle>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera>(null!);
@@ -33,7 +34,7 @@ const WorkRoom3D = () => {
   const [toggleDarkModeLabel, setToggleDarkModeLabel] = useState(t("workroom3D-toggleDarkMode"));
   const [zoomLabel, setZoomLabel] = useState(t("workroom3D-zoom"));
   const [helpersLabel, setHelpersLabel] = useState(t("workroom3D-helpers"));
-
+  
   useEffect(() => {
     setLightHelperLabel(t("workroom3D-showLightRays"));
     setViewLaptopLabel(t("workroom3D-viewlaptop"));
@@ -131,12 +132,13 @@ const WorkRoom3D = () => {
             <CameraAnimator
               trigger={animateCamera}
               setCamera={setAnimateCamera}
+              setFinishedCameraAnimating={setFinishedCameraAnimating}
               controlsRef={controlsRef}
               screenRef={screenRef}
             />
             <Center>
               <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                <MyRoom ref={screenRef} setCamera={setAnimateCamera} />
+                <MyRoom ref={screenRef} setCamera={setAnimateCamera} finishedCameraAnimating={finishedCameraAnimating} />
               </group>
             </Center>
           </Suspense>
