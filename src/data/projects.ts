@@ -304,7 +304,7 @@ export const myProjects: Project[] = [
     shortTitle: "My Duc Dental Backend",
     desc: "project7-desc",
     subdesc: "project7-subdesc",
-    href: "https://github.com/shiro102/my-duc-dental-backend",
+    href: "https://github.com/shiro102/nhakhoamyduc",
     logo: "/assets/myduclogo.jpg",
     projectType: "Backend Development",
     logoStyle: {
