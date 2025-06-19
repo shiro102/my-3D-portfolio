@@ -17,7 +17,7 @@ export const DarkModeProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const logoClickRef = useRef<((futureDark: boolean) => void) | null>(null);
   const secondaryLogoClickRef = useRef<((futureDark: boolean) => void) | null>(
     null
