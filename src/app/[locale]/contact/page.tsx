@@ -95,7 +95,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-gradient-to-b p-2 pt-10 md:pt-2 from-white via-blue-50 to-red-50 flex flex-col items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5 dark:from-[#221c1c] dark:via-[#171d2d] dark:to-[#040211] dark:text-white">
+    <div className="w-full md:h-screen bg-gradient-to-b p-2 pt-10 md:pt-2 from-white via-blue-50 to-red-50 flex flex-col items-center justify-center md:grid md:grid-cols-[40%_10%_40%] gap-5 dark:from-[#221c1c] dark:via-[#171d2d] dark:to-[#040211] dark:text-white">
       {/* Header */}
       <div className="flex flex-col gap-y-5">
         {/* Title */}
