@@ -101,7 +101,7 @@ const WorkRoom3D = () => {
       </div>
 
       {/* Canvas  */}
-      <div className="h-[calc(100vh-60px)] relative z-0">
+      <div className="h-[calc(100vh-36px)] md:h-[calc(100vh-60px)] relative z-0">
         <Canvas
           shadows
           camera={{
