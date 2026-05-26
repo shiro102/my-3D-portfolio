@@ -29,10 +29,15 @@ export const DarkModeProvider = ({
       "(prefers-color-scheme: dark)"
     ).matches;
 
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+    const shouldBeDark =
+      savedTheme === "dark" || (!savedTheme && prefersDark);
+
+    if (shouldBeDark) {
       document.documentElement.classList.add("dark");
-      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove("dark");
     }
+    setIsDark(shouldBeDark);
   }, []);
 
   const toggleDarkMode = () => {

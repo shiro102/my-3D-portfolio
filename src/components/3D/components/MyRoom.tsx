@@ -23,6 +23,7 @@ import { useTranslation } from "react-i18next";
 import { Poppins } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
+import WallCertificates from "@/components/3D/components/WallCertificates";
 
 export interface MyRoomHandle {
   screen: THREE.Object3D | null;
@@ -1234,48 +1235,11 @@ const MyRoom = forwardRef<
                     geometry={nodes.Cube037_1.geometry}
                     material={materials["lamp.012"]}
                   >
-                    {showWallHtml && (
-                    <Html
-                      className="w-[36px] h-[72px] p-0 bg-[#f0f0f0]"
-                      rotation-x={Math.PI / 2}
-                      rotation-y={Math.PI / 2}
-                      position={[0, -0.44, 0]}
-                      transform
-                      occlude="blending"
-                    >
-                      <Image
-                        src="https://drive.google.com/thumbnail?id=1yswG19mtOcoOK64LUNjmuGR0kC0TplRr&sz=w1000"
-                        alt="My Certificate 1"
-                        width={36}
-                        height={35}
-                        className="w-full h-[35px] object-cover cursor-pointer"
-                        onMouseEnter={() => setHoveredImageCertificate1(true)}
-                        onMouseLeave={() => setHoveredImageCertificate1(false)}
-                        onClick={() => {
-                          window.open(
-                            "https://cp.certmetrics.com/amazon/en/public/verify/credential/985b89975d2a4a3b9a108019a9b6e5e5",
-                            "_blank"
-                          );
-                        }}
-                      />
-                      <div className="w-full h-[1px] bg-[#f0f0f0]"></div>
-                      <Image
-                        src="https://drive.google.com/thumbnail?id=1vT6UVJWBU43cpG22AI4Mgqs1HRlXCsRJ&sz=w1000"
-                        alt="My Certificate 2"
-                        width={36}
-                        height={35}
-                        className="w-full h-[35px] object-cover cursor-pointer"
-                        onMouseEnter={() => setHoveredImageCertificate2(true)}
-                        onMouseLeave={() => setHoveredImageCertificate2(false)}
-                        onClick={() => {
-                          window.open(
-                            "https://cp.certmetrics.com/amazon/en/public/verify/credential/4E548B22TM4QQGC0",
-                            "_blank"
-                          );
-                        }}
-                      />
-                    </Html>
-                    )}
+                    <WallCertificates
+                      visible={showWallHtml}
+                      onHoverPractitioner={setHoveredImageCertificate1}
+                      onHoverArchitect={setHoveredImageCertificate2}
+                    />
                   </mesh>
                 </group>
 
@@ -1295,7 +1259,7 @@ const MyRoom = forwardRef<
                     >
                       <div className="w-[200px] rounded shadow-lg overflow-hidden bg-white text-sm transition-opacity duration-300">
                         <Image
-                          src="https://drive.google.com/thumbnail?id=1yswG19mtOcoOK64LUNjmuGR0kC0TplRr&sz=w1000"
+                          src="/certificates/aws-cloud-practitioner.jpg"
                           alt="Zoomed My Certificate 1"
                           width={200}
                           height={150}
@@ -1321,7 +1285,7 @@ const MyRoom = forwardRef<
                     >
                       <div className="w-[200px] rounded shadow-lg overflow-hidden bg-white text-sm transition-opacity duration-300">
                         <Image
-                          src="https://drive.google.com/thumbnail?id=1vT6UVJWBU43cpG22AI4Mgqs1HRlXCsRJ&sz=w1000"
+                          src="/certificates/aws-solutions-architect.jpg"
                           alt="Zoomed My Certificate 2"
                           width={200}
                           height={150}

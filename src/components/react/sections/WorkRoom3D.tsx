@@ -11,7 +11,7 @@ import LightHelper from "../../3D/helpers/LightHelper";
 import CameraAnimator from "@/components/3D/helpers/CameraAnimator";
 import { OrbitControls as OrbitControlsProps } from "three-stdlib";
 import SteamRibbon from "@/components/3D/components/SteamRibbon";
-import { Leva, useControls, button } from "leva";
+import { Leva, useControls, button, levaStore } from "leva";
 import { MyRoomHandle } from "@/components/3D/components/MyRoom";
 import { useDarkMode } from "../context/DarkModeContext";
 import { useTranslation } from "react-i18next";
@@ -40,7 +40,7 @@ const WorkRoom3D = () => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [cupInView, setCupInView] = useState(true);
   const [wallDecorInView, setWallDecorInView] = useState(false);
-  const { toggleDarkMode } = useDarkMode();
+  const { isDark, toggleDarkMode } = useDarkMode();
 
   const handleVisibilityChange = useCallback((visibility: SceneVisibility) => {
     setCupInView(visibility.cupInView);
@@ -49,6 +49,8 @@ const WorkRoom3D = () => {
 
   const steamActive =
     isSectionVisible && !isMobile && !prefersReducedMotion && cupInView;
+
+  const defaultCameraFov = isMobile ? 70 : 60;
 
   const initialCameraPosition = useMemo(
     () =>
@@ -116,7 +118,7 @@ const WorkRoom3D = () => {
     zoomLabel,
     {
       zoom: {
-        value: isMobile ? 70 : 60,
+        value: defaultCameraFov,
         min: 10,
         max: 100,
         step: 1,
@@ -128,11 +130,20 @@ const WorkRoom3D = () => {
     }
   );
 
+  const resetCamera = useCallback(() => {
+    setResetCameraCount((n) => n + 1);
+    levaStore.set({ [`${zoomLabel}.zoom`]: defaultCameraFov }, true);
+    if (cameraRef.current) {
+      cameraRef.current.fov = defaultCameraFov;
+      cameraRef.current.updateProjectionMatrix();
+    }
+  }, [defaultCameraFov, zoomLabel]);
+
   const { showLightHelpers } = useControls(
     helpersLabel,
     {
       [viewLaptopLabel]: button(() => setAnimateCamera(true)),
-      [resetCameraLabel]: button(() => setResetCameraCount((n) => n + 1)),
+      [resetCameraLabel]: button(resetCamera),
       [toggleDarkModeLabel]: button(() => toggleDarkMode()),
       showLightHelpers: {
         value: false,
@@ -196,6 +207,7 @@ const WorkRoom3D = () => {
               steamActive,
               cupInView,
               wallDecorInView,
+              isDark,
             ]}
           />
           <SceneVisibilityTracker
