@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import MyRoom from "@/components/3D/components/MyRoom";
 // import MyRoomAntique from "@/components/MyRoomAntique";
 import { Suspense } from "react";
@@ -15,32 +15,100 @@ import { Leva, useControls, button } from "leva";
 import { MyRoomHandle } from "@/components/3D/components/MyRoom";
 import { useDarkMode } from "../context/DarkModeContext";
 import { useTranslation } from "react-i18next";
+import {
+  InitialInvalidate,
+  InvalidateOnChange,
+} from "@/components/3D/helpers/DemandFrameHelpers";
+import SceneVisibilityTracker, {
+  type SceneVisibility,
+} from "@/components/3D/helpers/SceneVisibilityTracker";
 
 // import { CameraToObjectRay } from "@/components/3D/helpers/CameraToObjectRay";
 // import { ObjectCenterMarker } from "@/components/3D/helpers/ObjectCenterMarker";
 
 const WorkRoom3D = () => {
   const [animateCamera, setAnimateCamera] = useState(false);
+  const [resetCameraCount, setResetCameraCount] = useState(0);
   const [finishedCameraAnimating, setFinishedCameraAnimating] = useState(false);
   const controlsRef = useRef<OrbitControlsProps>(null);
   const screenRef = useRef<MyRoomHandle>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera>(null!);
   const scaleLevel = 1 / 0.085;
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [cupInView, setCupInView] = useState(true);
+  const [wallDecorInView, setWallDecorInView] = useState(false);
   const { toggleDarkMode } = useDarkMode();
+
+  const handleVisibilityChange = useCallback((visibility: SceneVisibility) => {
+    setCupInView(visibility.cupInView);
+    setWallDecorInView(visibility.wallDecorInView);
+  }, []);
+
+  const steamActive =
+    isSectionVisible && !isMobile && !prefersReducedMotion && cupInView;
+
+  const initialCameraPosition = useMemo(
+    () =>
+      new THREE.Vector3(
+        3.5 * scaleLevel,
+        2.9 * scaleLevel,
+        3.0 * scaleLevel
+      ),
+    [scaleLevel]
+  );
+  const initialControlsTarget = useMemo(() => new THREE.Vector3(0, 0, 0), []);
   const { t } = useTranslation("");
   const [lightHelperLabel, setLightHelperLabel] = useState(t("workroom3D-showLightRays"));
   const [viewLaptopLabel, setViewLaptopLabel] = useState(t("workroom3D-viewlaptop"));
   const [toggleDarkModeLabel, setToggleDarkModeLabel] = useState(t("workroom3D-toggleDarkMode"));
   const [zoomLabel, setZoomLabel] = useState(t("workroom3D-zoom"));
   const [helpersLabel, setHelpersLabel] = useState(t("workroom3D-helpers"));
+  const [resetCameraLabel, setResetCameraLabel] = useState(
+    t("workroom3D-resetCamera")
+  );
   
+  useEffect(() => {
+    const mobileMq = window.matchMedia("(max-width: 767px)");
+    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const syncMedia = () => {
+      setIsMobile(mobileMq.matches);
+      setPrefersReducedMotion(motionMq.matches);
+    };
+
+    syncMedia();
+    mobileMq.addEventListener("change", syncMedia);
+    motionMq.addEventListener("change", syncMedia);
+
+    return () => {
+      mobileMq.removeEventListener("change", syncMedia);
+      motionMq.removeEventListener("change", syncMedia);
+    };
+  }, []);
+
+  useEffect(() => {
+    const el = canvasContainerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSectionVisible(entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     setLightHelperLabel(t("workroom3D-showLightRays"));
     setViewLaptopLabel(t("workroom3D-viewlaptop"));
     setToggleDarkModeLabel(t("workroom3D-toggleDarkMode"));
     setZoomLabel(t("workroom3D-zoom"));
     setHelpersLabel(t("workroom3D-helpers"));
+    setResetCameraLabel(t("workroom3D-resetCamera"));
   }, [t]);
 
   // 🛠️ Panel toggle
@@ -64,6 +132,7 @@ const WorkRoom3D = () => {
     helpersLabel,
     {
       [viewLaptopLabel]: button(() => setAnimateCamera(true)),
+      [resetCameraLabel]: button(() => setResetCameraCount((n) => n + 1)),
       [toggleDarkModeLabel]: button(() => toggleDarkMode()),
       showLightHelpers: {
         value: false,
@@ -101,8 +170,12 @@ const WorkRoom3D = () => {
       </div>
 
       {/* Canvas  */}
-      <div className="h-[calc(100vh-36px)] md:h-[calc(100vh-60px)] relative z-0">
+      <div
+        ref={canvasContainerRef}
+        className="h-[calc(100vh-36px)] md:h-[calc(100vh-60px)] relative z-0"
+      >
         <Canvas
+          frameloop="demand"
           shadows
           camera={{
             position: [3.5 * scaleLevel, 2.9 * scaleLevel, 3.0 * scaleLevel],
@@ -114,6 +187,21 @@ const WorkRoom3D = () => {
             cameraRef.current = camera as THREE.PerspectiveCamera;
           }}
         >
+          <InitialInvalidate />
+          <InvalidateOnChange
+            deps={[
+              zoom,
+              showLightHelpers,
+              isSectionVisible,
+              steamActive,
+              cupInView,
+              wallDecorInView,
+            ]}
+          />
+          <SceneVisibilityTracker
+            roomRef={screenRef}
+            onVisibilityChange={handleVisibilityChange}
+          />
           {/* <Environment preset="sunset" background={false} far={100} /> */}
 
           {/* Lighting */}
@@ -131,6 +219,9 @@ const WorkRoom3D = () => {
             )} */}
             <CameraAnimator
               trigger={animateCamera}
+              resetCount={resetCameraCount}
+              initialCameraPosition={initialCameraPosition}
+              initialControlsTarget={initialControlsTarget}
               setCamera={setAnimateCamera}
               setFinishedCameraAnimating={setFinishedCameraAnimating}
               controlsRef={controlsRef}
@@ -138,7 +229,14 @@ const WorkRoom3D = () => {
             />
             <Center>
               <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                <MyRoom ref={screenRef} setCamera={setAnimateCamera} finishedCameraAnimating={finishedCameraAnimating} />
+                <MyRoom
+                  ref={screenRef}
+                  setCamera={setAnimateCamera}
+                  isCameraAnimating={animateCamera}
+                  finishedCameraAnimating={finishedCameraAnimating}
+                  sceneEffectsActive={steamActive}
+                  showWallHtml={wallDecorInView}
+                />
               </group>
             </Center>
           </Suspense>
@@ -152,14 +250,17 @@ const WorkRoom3D = () => {
             far={60} // must cover model height
           />
 
-          {/* Cup's steam */}
-          <SteamRibbon
-            position={[
-              0.02 * scaleLevel,
-              -0.65 * scaleLevel,
-              -0.55 * scaleLevel,
-            ]}
-          />
+          {/* Cup's steam — desktop only, when section is visible */}
+          {steamActive && (
+            <SteamRibbon
+              active
+              position={[
+                0.02 * scaleLevel,
+                -0.65 * scaleLevel,
+                -0.55 * scaleLevel,
+              ]}
+            />
+          )}
 
           {/* Rotation and Zoom controls */}
           <OrbitControls

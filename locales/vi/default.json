@@ -83,6 +83,7 @@
   "workroom3D-showLightRays": "Hiển thị tia sáng",
   "workroom3D-toggleDarkMode": "Chuyển đổi sáng/tối",
   "workroom3D-viewlaptop": "Tới Laptop",
+  "workroom3D-resetCamera": "Đặt lại camera",
   "workroom3D-zoom": "Độ zoom",
   "project7-desc": "Một backend API cho ứng dụng My Duc Dental, được xây dựng bằng Express.js và lưu trữ bằng Render. API này quản lý xác thực người dùng, quản lý dữ liệu và tích hợp với frontend để cung cấp trải nghiệm người dùng mượt mà.",
   "project7-subdesc": "Được xây dựng bằng Express.js và lưu trữ bằng Render, API này quản lý xác thực người dùng, quản lý dữ liệu và tích hợp với frontend để cung cấp trải nghiệm người dùng mượt mà.",

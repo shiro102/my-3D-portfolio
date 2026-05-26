@@ -12,7 +12,6 @@ import { useDarkMode } from "@/components/react/context/DarkModeContext";
 
 interface WorksProps {
   is3D?: boolean;
-  hasScrolled?: boolean;
 }
 
 const colorMappingType = {
@@ -36,7 +35,7 @@ const colorMappingType = {
   },
 };
 
-const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
+const Works = ({ is3D = false }: WorksProps) => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const { t } = useTranslation("");
@@ -228,24 +227,14 @@ const Works = ({ is3D = false, hasScrolled = false }: WorksProps) => {
                 `}
               >
                 {is3D ? (
-                  hasScrolled ? (
-                    <AnimatedButton
-                      animate={
-                        initialAnimation || isActive || hoveredType === type
-                      }
-                      is3D={is3D}
-                      color={colorMap.dark}
-                    />
-                  ) : (
-                    <span
-                      className="block w-full h-full"
-                      style={{
-                        background: colorMap.dark,
-                        boxShadow: `0 0 24px ${colorMap.medium}, 0 0 48px ${colorMap.dark}, 0 0 96px ${colorMap.light}`,
-                        borderRadius: "inherit",
-                      }}
-                    />
-                  )
+                  <span
+                    className="block w-full h-full"
+                    style={{
+                      background: colorMap.dark,
+                      boxShadow: `0 0 24px ${colorMap.medium}, 0 0 48px ${colorMap.dark}, 0 0 96px ${colorMap.light}`,
+                      borderRadius: "inherit",
+                    }}
+                  />
                 ) : (
                   <AnimatedButton
                     animate={

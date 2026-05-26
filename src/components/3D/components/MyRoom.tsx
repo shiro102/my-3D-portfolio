@@ -15,7 +15,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import * as THREE from "three";
 import "@/components/sample/laptopSample.css";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import Works from "@/components/react/sections/Work";
 import Navbar from "@/components/react/navbar";
 import { DarkModeContext } from "@/components/react/context/DarkModeContext";
@@ -26,6 +26,8 @@ import { useState } from "react";
 
 export interface MyRoomHandle {
   screen: THREE.Object3D | null;
+  cup: THREE.Object3D | null;
+  wallDecor: THREE.Object3D[];
 }
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
@@ -34,17 +36,26 @@ const MyRoom = forwardRef<
   MyRoomHandle,
   {
     setCamera: React.Dispatch<React.SetStateAction<boolean>>;
+    isCameraAnimating: boolean;
     finishedCameraAnimating: boolean;
+    sceneEffectsActive: boolean;
+    showWallHtml: boolean;
   }
 >(
   (
     {
       setCamera,
+      isCameraAnimating,
       finishedCameraAnimating,
+      sceneEffectsActive,
+      showWallHtml,
       ...rest
     }: {
       setCamera: React.Dispatch<React.SetStateAction<boolean>>;
+      isCameraAnimating: boolean;
       finishedCameraAnimating: boolean;
+      sceneEffectsActive: boolean;
+      showWallHtml: boolean;
     },
     ref
   ) => {
@@ -54,12 +65,15 @@ const MyRoom = forwardRef<
       useState(false);
     const [hoveredImageCertificate2, setHoveredImageCertificate2] =
       useState(false);
-    const [hasScrolled, setHasScrolled] = useState(false);
-
     const group = useRef<THREE.Group>(null);
     const screenRef = useRef<THREE.Mesh>(null);
+    const animatedCupRef = useRef<THREE.Group>(null);
+    const wallPictureBrownRef = useRef<THREE.Group>(null);
+    const wallPictureBlackRef = useRef<THREE.Group>(null);
+    const wallPictureRedRef = useRef<THREE.Group>(null);
     const scaleLevel = 1 / 0.085;
     const buttonToScreenRef = useRef<THREE.Group>(null);
+    const { invalidate } = useThree();
     const { t } = useTranslation("");
 
     // const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
@@ -69,6 +83,12 @@ const MyRoom = forwardRef<
     // Allow parent to access internal elements like Screen
     useImperativeHandle(ref, () => ({
       screen: screenRef.current,
+      cup: animatedCupRef.current,
+      wallDecor: [
+        wallPictureBrownRef.current,
+        wallPictureBlackRef.current,
+        wallPictureRedRef.current,
+      ].filter((g): g is THREE.Group => g != null),
     }));
 
     const { nodes, materials, animations } = useGLTF(
@@ -101,14 +121,14 @@ const MyRoom = forwardRef<
     //   }
     // }, [nodes]);
 
-    // add box helper
-    useEffect(() => {
-      if (screenRef.current) {
-        const mesh = nodes?.Plane031;
-        const boxHelper = new THREE.BoxHelper(mesh, 0xff0000);
-        group.current?.add(boxHelper);
-      }
-    }, []);
+    // // add box helper
+    // useEffect(() => {
+    //   if (screenRef.current) {
+    //     const mesh = nodes?.Plane031;
+    //     const boxHelper = new THREE.BoxHelper(mesh, 0xff0000);
+    //     group.current?.add(boxHelper);
+    //   }
+    // }, []);
 
     // Add mesh dimension measurement for picture frame
     // useEffect(() => {
@@ -126,27 +146,36 @@ const MyRoom = forwardRef<
     //   }
     // }, [nodes]);
 
-    // call animation and add delay
+    // Cup animation — only while scene effects are active (cup in view, etc.)
     useEffect(() => {
       const action = actions["Cylinder.006_0Action.004"];
       if (!action) return;
 
-      action.setLoop(THREE.LoopOnce, 1); // play only once
+      action.setLoop(THREE.LoopOnce, 1);
+
+      if (!sceneEffectsActive) {
+        action.stop();
+        return;
+      }
+
+      let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
       const playWithDelay = () => {
         action.reset().fadeIn(0.5).play();
         const duration = action.getClip().duration;
-
-        setTimeout(
-          () => {
-            playWithDelay(); // replay after animation ends + 1s
-          },
+        timeoutId = setTimeout(
+          () => playWithDelay(),
           (duration + 1.1) * 1000
         );
       };
 
       playWithDelay();
-    }, [actions]);
+
+      return () => {
+        if (timeoutId !== undefined) clearTimeout(timeoutId);
+        action.stop();
+      };
+    }, [actions, sceneEffectsActive]);
 
     useGSAP(() => {
       if (group.current) {
@@ -154,6 +183,7 @@ const MyRoom = forwardRef<
           y: Math.PI / 2,
           duration: 1,
           ease: "power3.out",
+          onUpdate: () => invalidate(),
         });
         group.current.traverse((child) => {
           if (child.isMesh) {
@@ -174,9 +204,28 @@ const MyRoom = forwardRef<
       if (buttonToScreenRef.current) {
         buttonToScreenRef.current.lookAt(camera.position);
       }
+      if (sceneEffectsActive) {
+        const cupAction = actions["Cylinder.006_0Action.004"];
+        if (cupAction?.isRunning()) {
+          invalidate();
+        }
+      }
     });
 
     const overlayScrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      invalidate();
+    }, [isCameraAnimating, finishedCameraAnimating, invalidate]);
+
+    useEffect(() => {
+      if (!showWallHtml) {
+        setHoveredImageCat(false);
+        setHoveredImageCouple(false);
+        setHoveredImageCertificate1(false);
+        setHoveredImageCertificate2(false);
+      }
+    }, [showWallHtml]);
 
     useEffect(() => {
       if (finishedCameraAnimating) {
@@ -198,6 +247,7 @@ const MyRoom = forwardRef<
             <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
               <group name="Root">
                 <group
+                  ref={animatedCupRef}
                   name="AnimatedCup"
                   position={[0.011, 0.441, 0.532]}
                   rotation={[Math.PI / 2, 0, 0]}
@@ -882,31 +932,47 @@ const MyRoom = forwardRef<
                         geometry={nodes.Cube008_2.geometry}
                         material={materials["screen.001"]}
                       >
-                        <Html
-                          className="w-[334px] h-[216px] bg-[#f0f0f0] rounded-[3px] overflow-hidden p-0 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-white"
-                          rotation-x={-Math.PI / 2}
-                          position={[0, 0.05, -0.09]}
-                          transform
-                          occlude="blending"
-                        >
-                          <DarkModeContextBridge>
-                            <div
-                              className="w-[668px] h-[432px] scale-[0.5] origin-top-left relative"
-                              onPointerDown={(e) => e.stopPropagation()}
-                            >
-                              <div
-                                className="h-full overflow-y-auto relative"
-                                onScroll={() => setHasScrolled(true)}
-                                ref={overlayScrollRef}
-                              >
-                                <div className="sticky top-0 z-50 h-[70px]">
-                                  <Navbar is3D={true} />
+                        {(isCameraAnimating || finishedCameraAnimating) && (
+                          <Html
+                            className="w-[334px] h-[216px] bg-[#f0f0f0] rounded-[3px] overflow-hidden p-0 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-white"
+                            rotation-x={-Math.PI / 2}
+                            position={[0, 0.05, -0.09]}
+                            transform
+                            occlude="blending"
+                          >
+                            {finishedCameraAnimating ? (
+                              <DarkModeContextBridge>
+                                <div
+                                  className="w-[668px] h-[432px] scale-[0.5] origin-top-left relative"
+                                  onPointerDown={(e) => e.stopPropagation()}
+                                >
+                                  <div
+                                    className="h-full overflow-y-auto relative"
+                                    ref={overlayScrollRef}
+                                  >
+                                    <div className="sticky top-0 z-50 h-[70px]">
+                                      <Navbar is3D={true} />
+                                    </div>
+                                    <Works is3D={true} />
+                                  </div>
                                 </div>
-                                <Works is3D={true} hasScrolled={hasScrolled} />
+                              </DarkModeContextBridge>
+                            ) : (
+                              <div
+                                className="w-[668px] h-[432px] scale-[0.5] origin-top-left bg-[#f0f0f0] dark:bg-[#111112] rounded-[3px] overflow-hidden"
+                                onPointerDown={(e) => e.stopPropagation()}
+                              >
+                                <div className="h-[70px] bg-white/80 dark:bg-black/80 border-b border-gray-200 dark:border-gray-700" />
+                                <div className="p-5 space-y-4">
+                                  <div className="h-8 w-2/3 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                                  <div className="h-4 w-full rounded bg-gray-100 dark:bg-gray-800 animate-pulse" />
+                                  <div className="h-4 w-5/6 rounded bg-gray-100 dark:bg-gray-800 animate-pulse" />
+                                  <div className="mt-6 h-40 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                                </div>
                               </div>
-                            </div>
-                          </DarkModeContextBridge>
-                        </Html>
+                            )}
+                          </Html>
+                        )}
                       </mesh>
                     </group>
                   </group>
@@ -1148,6 +1214,7 @@ const MyRoom = forwardRef<
                 </group>
 
                 <group
+                  ref={wallPictureBrownRef}
                   name="WallPictureBrown"
                   position={[1.006, 0.986, 1.178]}
                   rotation={[0, 0, -Math.PI / 2]}
@@ -1167,6 +1234,7 @@ const MyRoom = forwardRef<
                     geometry={nodes.Cube037_1.geometry}
                     material={materials["lamp.012"]}
                   >
+                    {showWallHtml && (
                     <Html
                       className="w-[36px] h-[72px] p-0 bg-[#f0f0f0]"
                       rotation-x={Math.PI / 2}
@@ -1207,6 +1275,7 @@ const MyRoom = forwardRef<
                         }}
                       />
                     </Html>
+                    )}
                   </mesh>
                 </group>
 
@@ -1215,7 +1284,7 @@ const MyRoom = forwardRef<
                   rotation={[0, 0, -Math.PI / 2]}
                   scale={[0.011, 0.086, 0.125]}
                 >
-                  {hoveredImageCertificate1 && (
+                  {showWallHtml && hoveredImageCertificate1 && (
                     <Html
                       rotation-x={Math.PI / 2}
                       rotation-y={Math.PI / 2}
@@ -1241,7 +1310,7 @@ const MyRoom = forwardRef<
                       </div>
                     </Html>
                   )}
-                  {hoveredImageCertificate2 && (
+                  {showWallHtml && hoveredImageCertificate2 && (
                     <Html
                       rotation-x={Math.PI / 2}
                       rotation-y={Math.PI / 2}
@@ -1270,6 +1339,7 @@ const MyRoom = forwardRef<
                 </group>
 
                 <group
+                  ref={wallPictureBlackRef}
                   name="WallPictureBlack"
                   position={[-0.97, 0.866, 1.423]}
                   scale={[0.011, 0.086, 0.125]}
@@ -1288,6 +1358,7 @@ const MyRoom = forwardRef<
                     geometry={nodes.Cube035_1.geometry}
                     material={materials["white.005"]}
                   >
+                    {showWallHtml && (
                     <Html
                       className="w-[62px] h-[70px] bg-[#f0f0f0] p-0"
                       rotation-x={Math.PI / 2}
@@ -1306,8 +1377,9 @@ const MyRoom = forwardRef<
                         onMouseLeave={() => setHoveredImageCouple(false)}
                       />
                     </Html>
+                    )}
                   </mesh>
-                  {hoveredImageCouple && (
+                  {showWallHtml && hoveredImageCouple && (
                     <Html
                       rotation-x={Math.PI / 2}
                       rotation-y={Math.PI / 2}
@@ -1334,6 +1406,7 @@ const MyRoom = forwardRef<
                 </group>
 
                 <group
+                  ref={wallPictureRedRef}
                   name="WallPictureRed"
                   position={[-0.97, 0.866, 1.068]}
                   scale={[0.011, 0.086, 0.125]}
@@ -1352,6 +1425,7 @@ const MyRoom = forwardRef<
                     geometry={nodes.Cube036_1.geometry}
                     material={materials["WEED.005"]}
                   >
+                    {showWallHtml && (
                     <Html
                       className="w-[62px] h-[70px] bg-[#f0f0f0] p-0"
                       rotation-x={-Math.PI / 2}
@@ -1370,8 +1444,9 @@ const MyRoom = forwardRef<
                         onMouseLeave={() => setHoveredImageCat(false)}
                       />
                     </Html>
+                    )}
                   </mesh>
-                  {hoveredImageCat && (
+                  {showWallHtml && hoveredImageCat && (
                     <Html
                       rotation-x={Math.PI / 2}
                       rotation-y={Math.PI / 2}
