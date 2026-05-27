@@ -1,5 +1,5 @@
 import { useRef, useMemo } from "react";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { TextureLoader } from "three";
 
@@ -15,7 +15,6 @@ export default function SteamRibbon({
 }: SteamRibbonProps) {
   const group = useRef<THREE.Group>(null!);
   const smokeTexture = useLoader(TextureLoader, "/textures/smoke.png");
-  const { invalidate } = useThree();
 
   const planes = useMemo(() => Array.from({ length: 15 }), []);
 
@@ -42,7 +41,6 @@ export default function SteamRibbon({
         obj.material.opacity = 0.3 * (1 - progress);
       }
     });
-    invalidate();
   });
 
   if (!active) return null;

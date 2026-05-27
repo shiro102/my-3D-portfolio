@@ -205,13 +205,31 @@ const MyRoom = forwardRef<
       if (buttonToScreenRef.current) {
         buttonToScreenRef.current.lookAt(camera.position);
       }
-      if (sceneEffectsActive) {
-        const cupAction = actions["Cylinder.006_0Action.004"];
-        if (cupAction?.isRunning()) {
-          invalidate();
-        }
-      }
     });
+
+    // Keep demand frameloop alive while scene effects animations are active,
+    // but throttle redraws to reduce CPU usage.
+    useEffect(() => {
+      if (!sceneEffectsActive) return;
+
+      let rafId = 0;
+      let lastDraw = 0;
+      const targetFrameMs = 1000 / 10; // 10 FPS is enough for subtle room effects
+
+      // loops forever to 
+      const tick = (now: number) => {
+        if (now - lastDraw >= targetFrameMs) {
+          invalidate();
+          lastDraw = now;
+        }
+        rafId = window.requestAnimationFrame(tick);
+      };
+      rafId = window.requestAnimationFrame(tick);
+
+      return () => {
+        if (rafId) window.cancelAnimationFrame(rafId);
+      };
+    }, [sceneEffectsActive, invalidate]);
 
     const overlayScrollRef = useRef<HTMLDivElement>(null);
 
@@ -933,47 +951,30 @@ const MyRoom = forwardRef<
                         geometry={nodes.Cube008_2.geometry}
                         material={materials["screen.001"]}
                       >
-                        {(isCameraAnimating || finishedCameraAnimating) && (
-                          <Html
+                        <Html
                             className="w-[334px] h-[216px] bg-[#f0f0f0] rounded-[3px] overflow-hidden p-0 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-white"
                             rotation-x={-Math.PI / 2}
                             position={[0, 0.05, -0.09]}
                             transform
                             occlude="blending"
                           >
-                            {finishedCameraAnimating ? (
-                              <DarkModeContextBridge>
-                                <div
-                                  className="w-[668px] h-[432px] scale-[0.5] origin-top-left relative"
-                                  onPointerDown={(e) => e.stopPropagation()}
-                                >
-                                  <div
-                                    className="h-full overflow-y-auto relative"
-                                    ref={overlayScrollRef}
-                                  >
-                                    <div className="sticky top-0 z-50 h-[70px]">
-                                      <Navbar is3D={true} />
-                                    </div>
-                                    <Works is3D={true} />
-                                  </div>
-                                </div>
-                              </DarkModeContextBridge>
-                            ) : (
+                            <DarkModeContextBridge>
                               <div
-                                className="w-[668px] h-[432px] scale-[0.5] origin-top-left bg-[#f0f0f0] dark:bg-[#111112] rounded-[3px] overflow-hidden"
+                                className="w-[668px] h-[432px] scale-[0.5] origin-top-left relative"
                                 onPointerDown={(e) => e.stopPropagation()}
                               >
-                                <div className="h-[70px] bg-white/80 dark:bg-black/80 border-b border-gray-200 dark:border-gray-700" />
-                                <div className="p-5 space-y-4">
-                                  <div className="h-8 w-2/3 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
-                                  <div className="h-4 w-full rounded bg-gray-100 dark:bg-gray-800 animate-pulse" />
-                                  <div className="h-4 w-5/6 rounded bg-gray-100 dark:bg-gray-800 animate-pulse" />
-                                  <div className="mt-6 h-40 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                                <div
+                                  className="h-full overflow-y-auto relative"
+                                  ref={overlayScrollRef}
+                                >
+                                  <div className="sticky top-0 z-50 h-[70px]">
+                                    <Navbar is3D={true} />
+                                  </div>
+                                  <Works is3D={true} />
                                 </div>
                               </div>
-                            )}
-                          </Html>
-                        )}
+                            </DarkModeContextBridge>
+                        </Html>
                       </mesh>
                     </group>
                   </group>
